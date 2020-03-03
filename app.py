@@ -50,6 +50,7 @@ def graph():
             return "There was an issue updating your task"
 
     else :
+
         get_d3_data()
         return  render_template('graph.html')
 

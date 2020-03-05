@@ -12,7 +12,7 @@ def create_image_list(path) :
     return image_list
 
 app = Flask(__name__)
-app.config['image_name'] = 'swan'
+app.config['image_name'] = 'Room_2005'
 app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])

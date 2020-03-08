@@ -51,7 +51,16 @@ def graph():
 
     else :
         get_d3_data()
-        return  render_template('graph.html')
+
+        # image_name = app.config['image_name']
+
+        PEOPLE_FOLDER = os.path.join('..', 'static', 'pictures')
+        # picture_filename = image_name + '.jpg'
+        full_filename = os.path.join(PEOPLE_FOLDER)
+        image_list = app.config['image_list']
+        db_attributes = app.config['attributes']
+
+        return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes )
 
 
 @app.route('/graph/data/attributes')

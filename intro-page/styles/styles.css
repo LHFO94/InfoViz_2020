@@ -1,0 +1,61 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    margin: 0 0;
+    font-family: 'Spartan', sans-serif;
+}
+
+.neon-cityscape {
+    background-color: green;
+    height: 819px;
+    width: 1024px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.neon-cityscape img {
+    transform-origin: 50% 15%;
+    transition: transform 8s ease;
+}
+
+.neon-cityscape:hover img {
+    transform: scale(5);
+}
+
+.fade-in {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadein ease 20s;
+    -webkit-animation: fadein ease 25s;
+    /* animation-delay: 5s;
+    -webkit-animation-delay: 5s; */
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+  
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+button {
+    font-size: 16px;
+    font-family: inherit;
+    padding: 10px 10px;
+}
+
+button:hover {
+    background-color: darkslategrey; /* Green */
+    color: white;
+  }

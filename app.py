@@ -66,7 +66,7 @@ def graph():
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
 
-        read_csv("content")
+        read_csv("goals")
 
         return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes )
 

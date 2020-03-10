@@ -53,7 +53,6 @@
    .offset([0,5])
    .html(function(d) {
        // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
-<<<<<<< HEAD
        var content = "<span style='margin-left: 2.5px;'><b>" + "XXX" + "</b></span><br>";
        var img_route = '../static/pictures/' + d.img + '.jpg'
    return `<img src="` + img_route + `"    height="420" width="420" style="float: left; margin: 0px 15px 15px 0px;" border="2"></img>`
@@ -62,13 +61,6 @@
           // "Consumer confidence: " + "<br/>" +
           // "Year: ";
         });
-=======
-       var image = '{{user_image}}' + '/' + d.img + '.jpg'
-       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
-       content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
-       return content;
-   });
->>>>>>> d590f64dfd2c5f71fc69aa35e780ffbf80fb7ece
 
  svg.call(tool_tip);
 

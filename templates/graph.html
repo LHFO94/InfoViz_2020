@@ -7,6 +7,7 @@
 {% block body %}
 <div class = "content">
   <h1   style="text-align:center">   N_O_W_H_E_R_E  </h1>
+
   <form action="/" method="GET" style="text-align:center" >
       <input type="submit" value="Go to Picture">
   </form>
@@ -25,6 +26,8 @@
      d.x = +d.x;
      d.y = +d.y;
    })
+
+
  	 console.log(data);
 
    const svg = d3.select('svg');
@@ -40,7 +43,6 @@
    const innerheight = height - margin.top - margin.bottom;
 
 
-
  const xValue =  d => d.x;
  const yValue = d => d.y;
 
@@ -53,17 +55,13 @@
    .offset([0,5])
    .html(function(d) {
        // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
-       var content = "<span style='margin-left: 2.5px;'><b>" + "XXX" + "</b></span><br>";
-       var img_route = '../static/pictures/' + d.img + '.jpg'
-   return `<img src="` + img_route + `"    height="420" width="420" style="float: left; margin: 0px 15px 15px 0px;" border="2"></img>`
-          // "Country: " + d.img + "<br/>" +
-          // "Pct of women researchers: " + "<br/>" +
-          // "Consumer confidence: " + "<br/>" +
-          // "Year: ";
-        });
+       var image = '../static/pictures/' + d.img + '.jpg'
+       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
+       content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
+       return content;
+   });
 
  svg.call(tool_tip);
-
 
    // xScale
  const xScale = d3.scaleLinear()
@@ -122,7 +120,7 @@
    g.selectAll('circle').data(data)
      .enter().append('circle')
      .transition()
-     .duration(3000)
+     .duration(1000)
      .attr('cy', d => yScale(yValue(d)) )
      .attr('cx', d => xScale(xValue(d)) )
      .attr('r', 6);

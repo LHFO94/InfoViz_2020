@@ -14,24 +14,18 @@
   <svg width = "960" height = "410" >
   </svg>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-<<<<<<< HEAD
-=======
   <!-- <script src="d3-tip.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
->>>>>>> 0e614a57bfe180eeef19e8b8f69604d9774b5035
   <script>
 
 
  d3.csv('/graph/data/attributes')
    .then(data => {
    data.forEach(d => {
-<<<<<<< HEAD
      d.x_v = +d.x_v;
      d.y_v = +d.y_v;
-=======
      d.x = +d.x;
      d.y = +d.y;
->>>>>>> 0e614a57bfe180eeef19e8b8f69604d9774b5035
    })
  	 console.log(data);
 
@@ -72,8 +66,6 @@
    });
 
  svg.call(tool_tip);
->>>>>>> 0e614a57bfe180eeef19e8b8f69604d9774b5035
-
 
    // xScale
  const xScale = d3.scaleLinear()
@@ -132,23 +124,16 @@
    g.selectAll('circle').data(data)
      .enter().append('circle')
      .transition()
-<<<<<<< HEAD
-      .duration(1000)
-=======
-     .duration(3000)
->>>>>>> 0e614a57bfe180eeef19e8b8f69604d9774b5035
+     .duration(1000)
      .attr('cy', d => yScale(yValue(d)) )
      .attr('cx', d => xScale(xValue(d)) )
      .attr('r', 6);
 
 
-<<<<<<< HEAD
-=======
 
      g.selectAll('circle')
       .on('mouseover', tool_tip.show)
       .on('mouseout', tool_tip.hide);
->>>>>>> 0e614a57bfe180eeef19e8b8f69604d9774b5035
  });
   </script>
 </div>

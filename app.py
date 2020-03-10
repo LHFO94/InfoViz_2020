@@ -11,6 +11,12 @@ def create_image_list(path) :
     image_list = os.listdir(path)
     return image_list
 
+def read_csv(name):
+    csv = "./static/attributes/csv/" + name + '.csv'
+    xx = pd.read_csv(csv, sep = ';')
+    print(xx)
+
+
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
 app.config['image_list'] = create_image_list('./static/pictures/')
@@ -59,6 +65,8 @@ def graph():
         full_filename = os.path.join(PEOPLE_FOLDER)
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
+
+        read_csv("content")
 
         return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes )
 

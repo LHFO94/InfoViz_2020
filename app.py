@@ -45,16 +45,25 @@ def graph():
     else :
 
         get_d3_data()
+        get_d3_attributes()
 
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
 
+        db_attributes = db_attributes[['Name','GEOGRAPHY']]
+
+
         return render_template('graph.html', image_list = image_list, db_attr = db_attributes )
 
 
-@app.route('/graph/data/attributes')
+@app.route('/graph/data/TSNE')
 def get_d3_data():
     df = app.config['data']
+    return df.to_csv()
+
+@app.route('/graph/data/attributes')
+def get_d3_attributes():
+    df = app.config['attributes']
     return df.to_csv()
 
 

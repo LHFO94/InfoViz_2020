@@ -42,7 +42,10 @@ input[type=submit]:hover {
   <script>
 
 
- d3.csv('/graph/data/attributes')
+  console.log({db_attr})
+
+
+ d3.csv('/graph/data/TSNE')
    .then(data => {
    data.forEach(d => {
      d.x = +d.x;
@@ -80,6 +83,10 @@ input[type=submit]:hover {
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
+       content +=`<p>Year:</p>`
+       content +=`<p>Location:</p>`
+
+
        return content;
    });
 
@@ -151,6 +158,7 @@ input[type=submit]:hover {
       .on('mouseover', tool_tip.show)
       .on('mouseout', tool_tip.hide);
  });
+
   </script>
 </div>
 

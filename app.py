@@ -19,7 +19,7 @@ def read_csv(name):
     df = pd.read_csv(csv_path, sep = ';')
     df.set_index('Name', inplace=True)
     df.to_json (json_path)
-    
+
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
 app.config['image_list'] = create_image_list('./static/pictures/')
@@ -68,13 +68,6 @@ def graph():
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
 
-        read_csv("approach")
-        read_csv("content")
-        read_csv("domains")
-        read_csv("geo")
-        read_csv("goals")
-        read_csv("human-factor")
-        read_csv("means")
 
         return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes )
 

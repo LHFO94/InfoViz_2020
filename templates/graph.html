@@ -52,12 +52,12 @@ input[type=submit]:hover {
    //var path = "{{json_list}}" + "approach.json";
 
    //..staticAttributesjsonapproach.json
-   d3.json('../static/Attributes/json/geo.json')
-     .then(function(file) {
+   d3.json('../static/Attributes/json/geo_new.json')
+     .then(function(geo_file) {
        //console.log(file)
        // data is now whole data set
        // draw chart in here!
-       console.log(file)
+       console.log(geo_file)
 
 
    const svg = d3.select('svg');
@@ -85,17 +85,26 @@ input[type=submit]:hover {
    .offset([0,5])
    .html(function(d) {
 
+        var location = ''
 
-      var temp =d.img
-      console.log( temp)
-       console.log(file["Cycle_2006"])
-
-
+       if ( geo_file[d.img]["Europe"] ==  1   ) {
+          location = "Europe";
+        } else if (  geo_file[d.img]["Nrth America"] == 1) {
+          location = "North America";
+        } else if (geo_file[d.img]["Middle East"] ==  1) {
+          location = "Middle East";
+        } else if (geo_file[d.img]["Asia"] ==  1) {
+          location = "Asia";
+        } else if (geo_file[d.img]["Sth America"] ==  1)   {
+          location = "South America";
+        }
+        console.log(location)
+       var temp = geo_file[d.img]['Year']
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>.values[0]";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
-       content +=`<p>Year:</p>`
-       content +=`<p>Location:</p>`
+       content +=`<p>Year: ` + temp +`</p>`
+       content +=`<p>Location:` + location + `</p>`
 
 
        return content;

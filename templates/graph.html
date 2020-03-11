@@ -42,8 +42,8 @@ input[type=submit]:hover {
   <script>
 
 
-  console.log({db_attr})
-
+  console.log(     `{{db_attr[  db_attr['Name'] == 'CH-1995-1'   ]}}`  )
+  console.log( 'hello'  )
 
  d3.csv('/graph/data/TSNE')
    .then(data => {
@@ -80,10 +80,12 @@ input[type=submit]:hover {
    .offset([0,5])
    .html(function(d) {
        // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
+       console.log(     d.img  )
+       console.log( {{db_attr[  db_attr['Name'] ==  d.img ]['Year'].values[0] }} )
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
-       content +=`<p>Year:</p>`
+       content +=`<p>Year:{{db_attr[  db_attr['Name'] == '`+ CH-1995-1 + `'  ]['Year'].values[0] }}</p>`
        content +=`<p>Location:</p>`
 
 

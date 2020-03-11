@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.config['image_name'] = 'Room_2005'
 app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
+app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])
 
 
@@ -48,9 +49,8 @@ def graph():
         get_d3_attributes()
 
         image_list = app.config['image_list']
-        db_attributes = app.config['attributes']
+        db_attributes = app.config['geo_data']
 
-        db_attributes = db_attributes[['Name','GEOGRAPHY']]
 
 
         return render_template('graph.html', image_list = image_list, db_attr = db_attributes )

@@ -17,7 +17,6 @@ app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])
-app.config['image_hover'] = 'Room_2005'
 
 
 
@@ -38,9 +37,6 @@ def intro():
 def graph():
     if request.method == 'POST':
         try :
-            print (request.form['myData'])
-            app.config['image_hover'] = request.form['myData']
-
             return  redirect('/graph/')
         except :
             return "There was an issue updating your task"
@@ -48,8 +44,8 @@ def graph():
         get_d3_data()
         get_d3_attributes()
         db_attributes = app.config['geo_data']
-        image_hover = app.config['image_hover']
-        return render_template('graph.html',  db_attr = db_attributes , image_hover = image_hover )
+        json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
+        return render_template('graph.html',  db_attr = db_attributes , json_list = json_list )
 
 
 @app.route('/graph/data/TSNE')

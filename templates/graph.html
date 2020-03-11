@@ -42,11 +42,6 @@ input[type=submit]:hover {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
-
-
-  console.log(     `{{db_attr[  db_attr['Name'] == 'CH-1995-1'   ]}}`  )
-  console.log( 'hello'  )
-
  d3.csv('/graph/data/TSNE')
    .then(data => {
    data.forEach(d => {
@@ -54,8 +49,16 @@ input[type=submit]:hover {
      d.y = +d.y;
    })
 
+   //var path = "{{json_list}}" + "approach.json";
 
- 	 console.log(data);
+   //..staticAttributesjsonapproach.json
+   d3.json('../static/Attributes/json/geo.json')
+     .then(function(file) {
+       //console.log(file)
+       // data is now whole data set
+       // draw chart in here!
+       console.log(file)
+
 
    const svg = d3.select('svg');
    const width = +svg.attr('width');
@@ -81,15 +84,17 @@ input[type=submit]:hover {
    .direction('e')
    .offset([0,5])
    .html(function(d) {
-       // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
-       $.post( "/graph/", {"myData": d.img} );
-       console.log('{{ image_hover}}')
+
+
+      var temp =d.img
+      console.log( temp)
+       console.log(file["Cycle_2006"])
 
 
        var image = '../static/pictures/' + d.img + '.jpg'
-       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
+       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>.values[0]";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
-       content +=`<p>Year:{{db_attr[  db_attr['Name'] == 'image_hover'  ]['Year'].values[0] }}</p>`
+       content +=`<p>Year:</p>`
        content +=`<p>Location:</p>`
 
 
@@ -163,8 +168,13 @@ input[type=submit]:hover {
      g.selectAll('circle')
       .on('mouseover', tool_tip.show)
       .on('mouseout', tool_tip.hide);
- });
 
+     })
+      .catch(function(error) {
+        console.log(error);
+        // handle error
+      })
+  });
   </script>
 </div>
 

@@ -2,6 +2,8 @@ from flask import Flask, render_template , url_for, request,redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
+import csv
+import json
 import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -12,9 +14,18 @@ def create_image_list(path) :
     return image_list
 
 def read_csv(name):
-    csv = "./static/attributes/csv/" + name + '.csv'
-    xx = pd.read_csv(csv, sep = ';')
-    print(xx)
+    csv_path = "./static/attributes/csv/" + name + '.csv'
+    json_path = "./static/attributes/json/"+ name + ".json"
+    # data = {}
+    # with open(csv_path) as csv_file:
+    #     reader = csv.DictReader(csv_file)
+    #     for row in reader:
+    #         print(row['Name'])
+    df = pd.read_csv(csv_path, sep = ';')
+    df.set_index('Name', inplace=True)
+    df.to_json (json_path)
+
+
 
 
 app = Flask(__name__)
@@ -61,12 +72,17 @@ def graph():
         # image_name = app.config['image_name']
 
         PEOPLE_FOLDER = os.path.join('..', 'static', 'pictures')
-        # picture_filename = image_name + '.jpg'
         full_filename = os.path.join(PEOPLE_FOLDER)
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
 
+        read_csv("approach")
+        read_csv("content")
+        read_csv("domains")
+        read_csv("geo")
         read_csv("goals")
+        read_csv("human-factor")
+        read_csv("means")
 
         return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes )
 

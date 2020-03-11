@@ -35,25 +35,16 @@ def intro():
 
 @app.route('/graph/', methods=['POST','GET'])
 def graph():
-
     if request.method == 'POST':
         try :
             return  redirect('/images/')
-
         except :
             return "There was an issue updating your task"
-
     else :
-
         get_d3_data()
         get_d3_attributes()
-
-        image_list = app.config['image_list']
         db_attributes = app.config['geo_data']
-
-
-
-        return render_template('graph.html', image_list = image_list, db_attr = db_attributes )
+        return render_template('graph.html',  db_attr = db_attributes )
 
 
 @app.route('/graph/data/TSNE')

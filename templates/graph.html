@@ -81,7 +81,11 @@ input[type=submit]:hover {
    .html(function(d) {
        // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
        console.log(     d.img  )
-       console.log( {{db_attr[  db_attr['Name'] ==  d.img ]['Year'].values[0] }} )
+       console.log( {{db_attr[  db_attr['Name'] == 'CH-1995-1' ]['Year'].values[0] }} )
+
+
+
+
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`

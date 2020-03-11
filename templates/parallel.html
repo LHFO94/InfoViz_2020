@@ -35,8 +35,7 @@
         "translate(" + margin.left + "," + margin.top + ")");
 
     var path = "{{json_list}}" + "approach.json"
-    console.log(path);
-    d3.csv(path)
+    d3.json(path)
       .then(function(data) {
         console.log(data)
         // data is now whole data set

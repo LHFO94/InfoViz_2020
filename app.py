@@ -6,6 +6,12 @@ import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+def csv_to_json(name):
+    csv_path = "./static/attributes/csv/" + name + '.csv'
+    json_path = "./static/attributes/json/"+ name + ".json"
+    df = pd.read_csv(csv_path, sep = ';')
+    df.set_index("Name", inplace=True)
+    df.to_json(json_path, orient='index')
 
 def create_image_list(path) :
     image_list = os.listdir(path)
@@ -20,13 +26,11 @@ app.config['data'] = pd.read_csv("./static/attributes/results_TSNE_2d.csv", head
 @app.route('/',methods=['POST','GET'])
 def index():
 
-
     if request.method == "POST":
         app.config['image_name'] = request.form["content"]
         return redirect('/')
 
     else:
-
 
         image_name = app.config['image_name']
 
@@ -59,7 +63,9 @@ def graph():
         full_filename = os.path.join(PEOPLE_FOLDER)
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
-        return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes)
+        json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
+        return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
+        json_list = json_list)
 
 @app.route('/graph/parallel', methods=['POST','GET'])
 def parallel():
@@ -74,6 +80,7 @@ def parallel():
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
         json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'json', '')
+
         return render_template('parallel.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
         json_list = json_list )
 

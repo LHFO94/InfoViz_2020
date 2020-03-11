@@ -16,18 +16,10 @@ def create_image_list(path) :
 def read_csv(name):
     csv_path = "./static/attributes/csv/" + name + '.csv'
     json_path = "./static/attributes/json/"+ name + ".json"
-    # data = {}
-    # with open(csv_path) as csv_file:
-    #     reader = csv.DictReader(csv_file)
-    #     for row in reader:
-    #         print(row['Name'])
     df = pd.read_csv(csv_path, sep = ';')
     df.set_index('Name', inplace=True)
     df.to_json (json_path)
-
-
-
-
+    
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
 app.config['image_list'] = create_image_list('./static/pictures/')

@@ -8,11 +8,9 @@ import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-
 def create_image_list(path):
     image_list = os.listdir(path)
     return image_list
-
 
 def read_csv(name):
     csv_path = "./static/attributes/csv/" + name + '.csv'
@@ -20,6 +18,15 @@ def read_csv(name):
     df = pd.read_csv(csv_path, sep=';')
     df.set_index('Name', inplace=True)
     df.to_json(json_path)
+
+def get_images(n):
+    image_paths = []
+    for file in os.listdir("./static/pictures/")[:n]:
+        if file.endswith(".jpg"):
+            s = '../static/pictures/' + file
+            image_paths.append(s)
+            print(file)
+    return image_paths
 
 
 app = Flask(__name__)
@@ -61,7 +68,7 @@ def graph():
     else:
         get_d3_data()
 
-        # image_name = app.config['image_name']
+        image_name = app.config['image_name']
 
         PEOPLE_FOLDER = os.path.join('..', 'static', 'pictures')
         full_filename = os.path.join(PEOPLE_FOLDER)
@@ -76,7 +83,6 @@ def get_d3_data():
     df = app.config['data']
     return df.to_csv()
 
-
 @app.route('/sequence', methods=['POST', 'GET'])
 def sequence():
 
@@ -88,9 +94,8 @@ def sequence():
             return "There was an issue updating your task"
     else:
 
-        image_list = app.config['image_list']
-        return render_template('index.html', image_list=image_list)
-
+        images = get_images(5)
+        return render_template('sequence.html', images=images)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,4 +1,4 @@
-{% extends "base.html"   %}
+{% extends "base.html" %}
 
 {% block head %}
 
@@ -97,7 +97,6 @@
   yAxisG.selectAll('.domain')
     .remove();
 
-
   yAxisG.append('text')
     .attr('class','axis-label')
     .attr('y',-17)
@@ -107,15 +106,12 @@
     .attr('text-anchor','middle')
     .text(yAxislabel);
 
-
     xAxisG.append('text')
       	.attr('class','axis-label')
       	.attr('y',30)
       	.attr('x',innerwidth/2)
         .attr('fill','black')
     		.text(xAxislabel);
-
-
 
    g.selectAll('circle').data(data)
      .enter().append('circle')
@@ -124,8 +120,6 @@
      .attr('cy', d => yScale(yValue(d)) )
      .attr('cx', d => xScale(xValue(d)) )
      .attr('r', 6);
-
-
 
      g.selectAll('circle')
       .on('mouseover', tool_tip.show)

@@ -6,46 +6,30 @@ import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-def csv_to_json(name):
-    csv_path = "./static/attributes/csv/" + name + '.csv'
-    json_path = "./static/attributes/json/"+ name + ".json"
-    df = pd.read_csv(csv_path, sep = ';')
-    df.set_index("Name", inplace=True)
-    df.to_json(json_path, orient='index')
-
-def create_image_list(path) :
-    image_list = os.listdir(path)
-    return image_list
 
 app = Flask(__name__)
-app.config['image_name'] = 'swan'
-app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['data'] = pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])
 
+
+
 @app.route('/', methods=['POST','GET'])
 def graph():
-
     if request.method == 'POST':
         try :
             return  redirect('/')
-
         except :
             return "There was an issue updating your task"
-
     else :
+
         get_d3_data()
 
-        # image_name = app.config['image_name']
-
-        PEOPLE_FOLDER = os.path.join('..', 'static', 'pictures')
-        # picture_filename = image_name + '.jpg'
-        full_filename = os.path.join(PEOPLE_FOLDER)
-        image_list = app.config['image_list']
+        full_filename = os.path.join('..', 'static', 'pictures')
         db_attributes = app.config['attributes']
         json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
-        return render_template('Front_page_scatter.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
-        json_list = json_list)
+
+        return render_template('Front_page_scatter.html', user_image = full_filename,  db_attr = db_attributes, json_list = json_list)
+
 
 @app.route('/parallel', methods=['POST','GET'])
 def parallel():
@@ -57,12 +41,13 @@ def parallel():
     else :
         PEOPLE_FOLDER = os.path.join('..', 'static')
         full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
-        image_list = app.config['image_list']
         db_attributes = app.config['attributes']
         json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
 
-        return render_template('parallel.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
-        json_list = json_list )
+        return render_template('parallel.html', user_image = full_filename , db_attr = db_attributes, json_list = json_list )
+
+
+
 
 @app.route('/data/attributes')
 def get_d3_data():

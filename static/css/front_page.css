@@ -1,0 +1,134 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    margin: 0 0;
+    font-family: 'Spartan', sans-serif;
+}
+
+
+.fade-in {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadein ease 5s;
+    -webkit-animation: fadein ease 5s;
+    /* animation-delay: 5s;
+    -webkit-animation-delay: 5s; */
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+
+
+
+submit {
+    font-size: 16px;
+    font-family: inherit;
+    padding: 10px 10px;
+}
+
+submit:hover {
+    background-color: darkslategrey; /* Green */
+    color: white;
+  }
+
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:center;
+                }
+
+    .tick line {
+       stroke: #C0C0BB
+      }
+
+
+    .tick text{
+        font-size: 0em;
+      }
+
+  circle {
+     fill : steelblue;
+     opacity: 0.6;
+     stroke: black;
+    }
+
+  .axis-label{
+    font-size: 2.5em;
+    fill: #635FSD
+  }
+
+    svg {
+      font: 10px sans-serif;
+    }
+
+
+    .d3-tip {
+      line-height: 1;
+      font-weight: bold;
+      padding: 6px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 1px;
+    }
+
+    .background path {
+      fill: none;
+      stroke: #ddd;
+      shape-rendering: crispEdges;
+    }
+
+    .foreground path {
+      fill: none;
+      stroke: steelblue;
+    }
+
+    .brush .extent {
+      fill-opacity: .3;
+      stroke: #fff;
+      shape-rendering: crispEdges;
+    }
+
+    .axis line,
+    .axis path {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .axis text {
+      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+      cursor: move;
+    }
+
+
+
+    input[type=submit] {
+      width: 100%;
+      background-color: black;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+
+    input[type=submit]:hover {
+      border: 0.5px solid white;
+      border-radius: 4px;
+    }

@@ -79,7 +79,7 @@ def parallel():
         full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
-        json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'json', '')
+        json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
 
         return render_template('parallel.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
         json_list = json_list )

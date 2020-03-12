@@ -44,7 +44,7 @@ def graph():
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
         json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
-        return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
+        return render_template('Front_page_scatter.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
         json_list = json_list)
 
 @app.route('/parallel', methods=['POST','GET'])

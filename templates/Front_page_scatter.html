@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>N_O_W_H_E_R_E</title>
+    <link href="https://fonts.googleapis.com/css?family=Spartan&display=swap" rel="stylesheet">
+
+    <style>
+    html, body {
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        margin: 0 0;
+        font-family: 'Spartan', sans-serif;
+    }
+
+
+    .fade-in {
+        text-align: center;
+        color: white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        animation: fadein ease 5s;
+        -webkit-animation: fadein ease 5s;
+        /* animation-delay: 5s;
+        -webkit-animation-delay: 5s; */
+    }
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @-webkit-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+
+
+
+    submit {
+        font-size: 16px;
+        font-family: inherit;
+        padding: 10px 10px;
+    }
+
+    submit:hover {
+        background-color: darkslategrey; /* Green */
+        color: white;
+      }
+
+
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align:center;
+                    }
+
+        .tick line {
+           stroke: #C0C0BB
+          }
+
+
+        .tick text{
+            font-size: 0em;
+          }
+
+      circle {
+  	     fill : steelblue;
+         opacity: 0.6;
+         stroke: black;
+        }
+
+      .axis-label{
+   	    font-size: 2.5em;
+        fill: #635FSD
+      }
+
+        svg {
+          font: 10px sans-serif;
+        }
+
+
+        .d3-tip {
+          line-height: 1;
+          font-weight: bold;
+          padding: 6px;
+          background: rgba(0, 0, 0, 0.8);
+          color: #fff;
+          border-radius: 1px;
+        }
+
+        .background path {
+          fill: none;
+          stroke: #ddd;
+          shape-rendering: crispEdges;
+        }
+
+        .foreground path {
+          fill: none;
+          stroke: steelblue;
+        }
+
+        .brush .extent {
+          fill-opacity: .3;
+          stroke: #fff;
+          shape-rendering: crispEdges;
+        }
+
+        .axis line,
+        .axis path {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+
+        .axis text {
+          text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+          cursor: move;
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="fade-in">
+            <h1 style="font-size: 100px;">N_O_W_H_E_R_E</h1>
+            <svg width = "960" height = "510" >
+            </svg>
+        </div>
+
+
+          <script src="https://d3js.org/d3.v5.min.js"></script>
+          <!-- <script src="d3-tip.js"></script> -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+          <script>
+
+         d3.csv('/data/attributes')
+           .then(data => {
+           data.forEach(d => {
+             d.x = +d.x;
+             d.y = +d.y;
+           })
+
+           //var path = "{{json_list}}" + "approach.json";
+
+           //..staticAttributesjsonapproach.json
+           d3.json('../static/Attributes/json/geo_new.json')
+             .then(function(geo_file) {
+               //console.log(file)
+               // data is now whole data set
+               // draw chart in here!
+               console.log(geo_file)
+
+           const svg = d3.select('svg');
+           const width = +svg.attr('width');
+           const height = +svg.attr('height');
+
+           const xAxislabel = ' ';
+           const yAxislabel = ' ';
+
+
+           const margin = {top: 15 , right: 50 , bottom: 50, left: 50};
+           const innerwidth = width - margin.left - margin.right;
+           const innerheight = height - margin.top - margin.bottom;
+
+
+         const xValue =  d => d.x;
+         const yValue = d => d.y;
+
+
+
+
+         var tool_tip = d3.tip()
+           .attr('class', 'd3-tip')
+           .direction('e')
+           .offset([0,5])
+           .html(function(d) {
+
+                var location = ''
+
+               if ( geo_file[d.img]["Europe"] ==  1   ) {
+                  location = "Europe";
+                } else if (  geo_file[d.img]["Nrth America"] == 1) {
+                  location = "North America";
+                } else if (geo_file[d.img]["Middle East"] ==  1) {
+                  location = "Middle East";
+                } else if (geo_file[d.img]["Asia"] ==  1) {
+                  location = "Asia";
+                } else if (geo_file[d.img]["Sth America"] ==  1)   {
+                  location = "South America";
+                };
+
+
+
+
+               var temp = geo_file[d.img]['Year']
+               var image = '../static/pictures/' + d.img + '.jpg'
+               var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
+               content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
+               content +=`<p>Year: ` + temp +`</p>`
+               content +=`<p>Location:` + location + `</p>`
+               return content;
+           });
+
+         svg.call(tool_tip);
+
+           // xScale
+         const xScale = d3.scaleLinear()
+               .domain(d3.extent(data,xValue))
+               .range([0 , innerwidth]);
+
+         // y Scale
+         const yScale = d3.scaleLinear()
+           .domain(d3.extent(data,yValue))
+           .range([innerheight,0]);
+
+           const g = svg.append('g')
+           	.attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+
+
+            const yAxis = d3.axisLeft(yScale)
+            			.tickSize(0)
+
+
+              const  yAxisG = g.append('g').call(yAxis);
+
+            const xAxis = d3.axisBottom(xScale)
+            .tickSize(0);
+
+
+            const  xAxisG =  g.append('g').call(xAxis)
+            		.attr('transform', `translate(0, ${innerheight})`);
+
+
+          xAxisG.selectAll('.domain')
+            .remove();
+          yAxisG.selectAll('.domain')
+            .remove();
+
+
+          yAxisG.append('text')
+            .attr('class','axis-label')
+            .attr('y',-17)
+            .attr('x', -innerheight/2  + 15)
+            .attr('fill','black')
+            .attr('transform','rotate(-90)')
+            .attr('text-anchor','middle')
+            .text(yAxislabel);
+
+
+            xAxisG.append('text')
+              	.attr('class','axis-label')
+              	.attr('y',30)
+              	.attr('x',innerwidth/2)
+                .attr('fill','black')
+            		.text(xAxislabel);
+
+
+
+           g.selectAll('circle').data(data)
+             .enter().append('circle')
+             .transition()
+             .duration(7000)
+             .attr('cy', d => yScale(yValue(d)) )
+             .attr('cx', d => xScale(xValue(d)) )
+             .attr('r', 6);
+
+             g.selectAll('circle')
+              .on('mouseover', tool_tip.show)
+              .on('mouseout', tool_tip.hide);
+
+             })
+              .catch(function(error) {
+                console.log(error);
+                // handle error
+              })
+          });
+          </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>

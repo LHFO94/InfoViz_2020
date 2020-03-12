@@ -7,23 +7,33 @@
   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/sequence.css')}}">
 </head>
 
+<div class="header">
+  <h1> S_O_M_E_W_H_E_R_E</h1>
+</div>
+
 <body>
   <div class='row'>
     <div class='column'>
-      {% for img_path in images %}
-        <img src= '{{img_path}}' height=80%>
-      {% endfor %}
+      <div class="container">
+        {% for img_path in images[0:3] %}
+          <img class='img-responsive' src= '{{img_path}}' height=95%>
+        {% endfor %}
+      </div>
     </div>
     <div class='column'>
-      {% for img_path in images %}
-        <img src= '{{img_path}}' height=80%>
-      {% endfor %}
+      <div class="container">
+        {% for img_path in images[3:6] %}
+          <img src= '{{img_path}}' height=95%>
+        {% endfor %}
+      </div>
     </div>
     <div class='column'>
-      {% for img_path in images %}
-        <img src= '{{img_path}}' style="width: 100px">
-      {% endfor %}
+      <div class="container">
+        {% for img_path in images[6:9] %}
+          <img src= '{{img_path}}' height=95%>
+        {% endfor %}
+      </div>
     </div>
-  </div>
+  </div>  
 </body>
 </html>

@@ -28,7 +28,6 @@ def get_images(n):
             print(file)
     return image_paths
 
-
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
 app.config['image_list'] = create_image_list('./static/pictures/')
@@ -94,7 +93,7 @@ def sequence():
             return "There was an issue updating your task"
     else:
 
-        images = get_images(5)
+        images = get_images(9)
         return render_template('sequence.html', images=images)
 
 if __name__ == "__main__":

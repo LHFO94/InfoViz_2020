@@ -42,7 +42,7 @@ input[type=submit]:hover {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
- d3.csv('/graph/data/TSNE')
+ d3.csv('/data/attributes')
    .then(data => {
    data.forEach(d => {
      d.x = +d.x;
@@ -58,15 +58,6 @@ input[type=submit]:hover {
        // data is now whole data set
        // draw chart in here!
        console.log(geo_file)
-
-
-       d3.json('../static/Attributes/json/Reality.json')
-         .then(function(reality_file) {
-           //console.log(file)
-           // data is now whole data set
-           // draw chart in here!
-           console.log(reality_file)
-
 
    const svg = d3.select('svg');
    const width = +svg.attr('width');
@@ -107,19 +98,6 @@ input[type=submit]:hover {
           location = "South America";
         };
 
-        reality = reality_file[d.img];
-        var real = new Array("", "", "","","");
-        var loop = 0;
-        for (var key in reality) {
-          // assign
-             if reality[key] > 0:
-              real[loop] =
-
-          //order a list
-
-        };
-
-
 
 
 
@@ -129,13 +107,6 @@ input[type=submit]:hover {
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
        content +=`<p>Year: ` + temp +`</p>`
        content +=`<p>Location:` + location + `</p>`
-       content +=`<p>Top 5 Attributes` + location + `</p>`
-       content +=`<p>1.` + real[0] + `</p>`
-       content +=`<p>2.` + real[1] + `</p>`
-       content +=`<p>3.` + real[2] + `</p>`
-       content +=`<p>4.` + real[3] + `</p>`
-       content +=`<p>5.` + real[4] + `</p>`
-
        return content;
    });
 
@@ -206,12 +177,6 @@ input[type=submit]:hover {
      g.selectAll('circle')
       .on('mouseover', tool_tip.show)
       .on('mouseout', tool_tip.hide);
-    })
-     .catch(function(error) {
-       console.log(error);
-       // handle error
-     })
-
 
      })
       .catch(function(error) {

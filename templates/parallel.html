@@ -1,0 +1,105 @@
+{% extends "base.html"   %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+  <h1 style="text-align:center"> N_O_W_H_E_R_E </h1>
+
+  <form action="/" method="GET" style="text-align:center">
+    <input type="submit" value="Go to Picture">
+  </form>
+  <h3 style="text-align:center">Parallel Plot of Human-Factor Atrributes</h3>
+  <div id="datavis"></div>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+  <script type="text/javascript">
+    var margin = {
+        top: 30,
+        right: 10,
+        bottom: 10,
+        left: 0
+      },
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#datavis")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+    var path = `../static/Attributes/csv/` + `human-factor.csv`
+    // var path =
+    d3.csv(path)
+      .then(function(data) {
+
+        dimensions = d3.keys(data[0]).filter(function(d) { return d != "Name" })
+        console.log(data[0]);
+
+        var y = {}
+        for (i in dimensions) {
+          name = dimensions[i]
+          y[name] = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) {
+              return +d[name];
+            }))
+            .range([height, 0])
+        }
+
+        // Build the X scale -> it find the best position for each Y axis
+        x = d3.scalePoint()
+          .range([0, width])
+          .padding(1)
+          .domain(dimensions);
+
+        function path(d) {
+          return d3.line()(dimensions.map(function(p) {
+            return [x(p), y[p](d[p])];
+          }));
+        }
+
+        svg
+          .selectAll("path")
+          .data(data)
+          .enter().append("path")
+          .attr("d", path)
+          .style("fill", "none")
+          .style("stroke", "#69b3a2")
+          .style("opacity", 0.5)
+
+        // Draw the axis:
+        svg.selectAll("axis")
+          // For each dimension of the dataset I add a 'g' element:
+          .data(dimensions).enter()
+          .append("g")
+          // I translate this element to its right position on the x axis
+          .attr("transform", function(d) {
+            return "translate(" + x(d) + ")";
+          })
+          // And I build the axis with the call function
+          .each(function(d) {
+            d3.select(this).call(d3.axisLeft().scale(y[d]));
+          })
+          // Add axis title
+          .append("text")
+          .style("text-anchor", "middle")
+          .attr("y", -9)
+          .text(function(d) {
+            return d;
+          })
+          .style("fill", "black")
+
+      })
+      .catch(function(error) {
+        // handle error
+      })
+  </script>
+</div>
+
+{% endblock %}

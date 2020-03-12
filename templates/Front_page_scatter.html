@@ -23,6 +23,10 @@
           <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+          <script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+
+
+
           <script>
 
          d3.csv('/data/attributes')
@@ -30,6 +34,7 @@
            data.forEach(d => {
              d.x = +d.x;
              d.y = +d.y;
+             d.z = +d.z
            })
 
            //var path = "{{json_list}}" + "approach.json";
@@ -40,7 +45,7 @@
                //console.log(file)
                // data is now whole data set
                // draw chart in here!
-               console.log(geo_file)
+               console.log(data)
 
            const svg = d3.select('svg');
            const width = +svg.attr('width');
@@ -57,6 +62,13 @@
 
          const xValue =  d => d.x;
          const yValue = d => d.y;
+         const zValue = d => d.z;
+
+
+         // Build color scale
+         var myColor = d3.scaleSequential()
+            .interpolator(d3.interpolateTurbo)
+                .domain([-4,7])
 
 
 
@@ -155,7 +167,8 @@
              .duration(7000)
              .attr('cy', d => yScale(yValue(d)) )
              .attr('cx', d => xScale(xValue(d)) )
-             .attr('r', 6);
+             .attr('r', 6)
+              .style("fill", function(d) { return myColor(zValue(d))} );
 
              g.selectAll('circle')
               .on('mouseover', tool_tip.show)

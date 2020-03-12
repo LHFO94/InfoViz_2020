@@ -9,7 +9,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 app = Flask(__name__)
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
-app.config['data'] = pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])
+app.config['data'] = pd.read_csv("./static/attributes/results_TSNE_3d.csv", header=[0])
 
 
 

@@ -12,13 +12,13 @@ body {
   font-size: 50px;
 }
 
+.row {
+}
+
 .column {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
-}
-
-.row {
 }
 
 .container{

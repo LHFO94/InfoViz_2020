@@ -25,7 +25,6 @@ def get_images(n):
         if file.endswith(".jpg"):
             s = '../static/pictures/' + file
             image_paths.append(s)
-            print(file)
     return image_paths
 
 app = Flask(__name__)
@@ -92,7 +91,6 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-
         images = get_images(9)
         return render_template('sequence.html', images=images)
 

@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/front_page.css')}}">
 </head>
 <body>
-        <div class="content">
-            <h1 style="font-size: 100px;">N_O_W_H_E_R_E</h1>
+        <div class="fadein">
+            <h1 style="font-size: 100px; color: white; text-align:center">N_O_W_H_E_R_E</h1>
             <form action="/graph" method="GET" style="text-align:center" >
                 <input type="submit" value="W_H_E_R_E_A_R_E_Y_O_U_?">
             </form>
-              <br>
-              <svg width = "960" height = "410" >
+              <svg width = "1500" height = "410" >
               </svg>
               <script src="https://d3js.org/d3.v5.min.js"></script>
               <!-- <script src="d3-tip.js"></script> -->
               <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+              <script src="https://d3js.org/d3-color.v1.min.js"></script>
+              <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+              <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
               <script>
 
               d3.csv('/graph/data/TSNE')
@@ -26,6 +27,7 @@
                 data.forEach(d => {
                   d.x = +d.x;
                   d.y = +d.y;
+                  d.z = +d.z;
                 })
 
                 //var path = "{{json_list}}" + "approach.json";
@@ -46,13 +48,19 @@
                 const yAxislabel = ' ';
 
 
-                const margin = {top: 10 , right: 50 , bottom: 50, left: 50};
+                const margin = {top: 10 , right: 200 , bottom: 50, left: 300};
                 const innerwidth = width - margin.left - margin.right;
                 const innerheight = height - margin.top - margin.bottom;
 
 
               const xValue =  d => d.x;
               const yValue = d => d.y;
+              const zValue = d => d.z;
+
+              // Build color scale
+                var myColor = d3.scaleSequential()
+                  .interpolator(d3.interpolateSpectral )
+                    .domain([1,10])
 
 
 
@@ -83,11 +91,10 @@
 
                     var temp = geo_file[d.img]['Year']
                     var image = '../static/pictures/' + d.img + '.jpg'
-                    var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>.values[0]";
+                    var content = "<span style='margin-center: 2.5px; text-align:center'><b>" + d.img + "</b></span><br>";
                     content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
                     content +=`<p>Year: ` + temp +`</p>`
                     content +=`<p>Location:` + location + `</p>`
-                    content +=`<p>Top 5 Attributes` + location + `</p>`
                     return content;
                 });
 
@@ -109,13 +116,13 @@
 
 
                  const yAxis = d3.axisLeft(yScale)
-                       .tickSize(-innerwidth)
+                       .tickSize(0)
 
 
                    const  yAxisG = g.append('g').call(yAxis);
 
                  const xAxis = d3.axisBottom(xScale)
-                 .tickSize(-innerheight);
+                 .tickSize(0);
 
 
                  const  xAxisG =  g.append('g').call(xAxis)
@@ -153,7 +160,8 @@
                   .duration(1000)
                   .attr('cy', d => yScale(yValue(d)) )
                   .attr('cx', d => xScale(xValue(d)) )
-                  .attr('r', 6);
+                  .attr('r', 6)
+                  .style("fill", function(d) { return myColor(zValue(d))} );
 
                   g.selectAll('circle')
                    .on('mouseover', tool_tip.show)

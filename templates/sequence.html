@@ -5,6 +5,9 @@
   <meta name = "viewpoint"  content ="width=device-width, initial-scale=1.0" >
   <meta http-equiv= "X-UA-Compatible" content = "ie=edge">
   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/sequence.css')}}">
+  <script defer src="../static/js/lightbox.js"></script>
+  <!-- Removes error w.r.t. icon of a website in titlebar -->
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 </head>
 
 <div class="header">
@@ -12,6 +15,7 @@
 </div>
 
 <body>
+<!-- Image grid -->
   <div class='image-grid'>
     <div class='row'>
       {% for img_path in images[0:3] %}

@@ -13,7 +13,6 @@ body {
 }
 
 .image-grid {
-
 }
 
 .row {
@@ -30,9 +29,26 @@ body {
 .container img {
   margin-top: 15px;
   transition: transform .2s;
-  height: 700px
+  height: 700px;
+  cursor: pointer;
 }
 
 .container:hover {
   transform: scale(1.3);
+}
+
+#lightbox {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+}
+
+#lightbox.active{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

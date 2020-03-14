@@ -5,15 +5,54 @@
     <title>N_O_W_H_E_R_E</title>
     <link href="https://fonts.googleapis.com/css?family=Spartan&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/front_page.css')}}">
+
+<style>
+
+
+.fadein {
+    text-align: center;
+    color: white;
+    position: absolute;
+    font-size: 40px;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadein ease 10s;
+    -webkit-animation: fadein ease 10s;
+    /* animation-delay: 5s;
+    -webkit-animation-delay: 5s; */
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+
+
+</style>
+
+
+
+
+
 </head>
 <body>
-        <div class="fadein">
-            <h1 style="font-size: 100px; color: white; text-align:center">N_O_W_H_E_R_E</h1>
+        <div class="context">
+          <div class = 'fadein'>
+            <h1 >N_O_W_H_E_R_E</h1>
             <form action="/graph" method="GET" style="text-align:center" >
                 <input type="submit" value="W_H_E_R_E_A_R_E_Y_O_U_?">
             </form>
               <svg width = "1500" height = "410" >
               </svg>
+            </div>
               <script src="https://d3js.org/d3.v5.min.js"></script>
               <!-- <script src="d3-tip.js"></script> -->
               <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
@@ -157,7 +196,7 @@
                 g.selectAll('circle').data(data)
                   .enter().append('circle')
                   .transition()
-                  .duration(1000)
+                  .duration(7000)
                   .attr('cy', d => yScale(yValue(d)) )
                   .attr('cx', d => xScale(xValue(d)) )
                   .attr('r', 6)

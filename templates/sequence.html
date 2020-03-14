@@ -12,27 +12,27 @@
 </div>
 
 <body>
-  <div class='row'>
-    <div class='column'>
+  <div class='image-grid'>
+    <div class='row'>
       {% for img_path in images[0:3] %}
         <div class="container">
-          <img class='img-responsive' src= '{{img_path}}' height=95%>
+          <img class='img-responsive' src= '{{img_path}}'>
         </div>
       {% endfor %}
     </div>
-    <div class='column'>
-      <div class="container">
-        {% for img_path in images[3:6] %}
-          <img src= '{{img_path}}' height=95%>
-        {% endfor %}
-      </div>
+    <div class='row'>
+      {% for img_path in images[3:6] %}
+        <div class="container">
+          <img class='img-responsive' src= '{{img_path}}'>
+        </div>
+      {% endfor %}
     </div>
-    <div class='column'>
-      <div class="container">
-        {% for img_path in images[6:9] %}
-          <img src= '{{img_path}}' height=95%>
-        {% endfor %}
-      </div>
+    <div class='row'>
+      {% for img_path in images[6:9] %}
+        <div class="container">
+          <img class='img-responsive' src= '{{img_path}}'>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </body>

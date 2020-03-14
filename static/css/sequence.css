@@ -12,25 +12,25 @@ body {
   font-size: 50px;
 }
 
-.row {
+.image-grid {
+
 }
 
-.column {
-  display: flex;
-  flex-wrap: wrap;
+.row {
   padding: 0 4px;
+  display: flex;
+  justify-content: center;
 }
 
 .container{
-  flex: 50%;
-  padding: 0 4px;
+  padding: 0 15px;
   transition: transform .2s;
 }
 
 .container img {
-  margin-top: 8px;
-  vertical-align: middle;
+  margin-top: 15px;
   transition: transform .2s;
+  height: 700px
 }
 
 .container:hover {

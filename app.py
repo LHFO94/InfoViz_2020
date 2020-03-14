@@ -16,7 +16,7 @@ app.config['image_name'] = 'Room_2005'
 app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
-app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_2d.csv", header=[0])
+app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d_2.csv", header=[0])
 
 
 
@@ -31,7 +31,12 @@ def intro():
             return "There was an issue updating your task"
 
     else :
-        return render_template('intro_page.html')
+        get_d3_data()
+        get_d3_attributes()
+        db_attributes = app.config['geo_data']
+        json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
+
+        return render_template('intro_page.html',  db_attr = db_attributes , json_list = json_list )
 
 @app.route('/graph/', methods=['POST','GET'])
 def graph():

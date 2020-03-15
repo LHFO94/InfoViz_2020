@@ -31,12 +31,7 @@ input[type=submit]:hover {
 
 {% block body %}
 <div class = "content">
-<<<<<<< HEAD
   <h1 style="color:white" style="text-align:center">   N_O_W_H_E_R_E  </h1>
-=======
-  <h1   style="text-align:center">   N_O_W_H_E_R_E  </h1>
->>>>>>> 1294e1dae098c3a10186f6ade9cd519401ad824c
-
   <form action="/" method="GET" style="text-align:center" >
       <input type="submit" value="Back to Intro Screen">
   </form>
@@ -49,14 +44,13 @@ input[type=submit]:hover {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
- d3.csv('/data/attributes')
+ d3.csv('/graph/data/TSNE')
    .then(data => {
    data.forEach(d => {
      d.x = +d.x;
      d.y = +d.y;
    })
 
-<<<<<<< HEAD
    //var path = "{{json_list}}" + "approach.json";
 
    //..staticAttributesjsonapproach.json
@@ -66,11 +60,9 @@ input[type=submit]:hover {
        // data is now whole data set
        // draw chart in here!
        console.log(geo_file)
-=======
+
 
  	 console.log(data);
->>>>>>> 1294e1dae098c3a10186f6ade9cd519401ad824c
-
    const svg = d3.select('svg');
    const width = +svg.attr('width');
    const height = +svg.attr('height');
@@ -95,7 +87,7 @@ input[type=submit]:hover {
    .direction('e')
    .offset([0,5])
    .html(function(d) {
-<<<<<<< HEAD
+
 
         var location = ''
 
@@ -117,11 +109,9 @@ input[type=submit]:hover {
        var temp = geo_file[d.img]['Year']
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>.values[0]";
-=======
        // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
        var image = '../static/pictures/' + d.img + '.jpg'
        var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
->>>>>>> 1294e1dae098c3a10186f6ade9cd519401ad824c
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
        content +=`<p>Year: ` + temp +`</p>`
        content +=`<p>Location:` + location + `</p>`

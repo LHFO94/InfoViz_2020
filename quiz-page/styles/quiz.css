@@ -29,13 +29,18 @@ html {
 
 .question {
     color: pink;
-    margin: -100px 0 100px 0;
+    margin: -150px auto 100px auto;
+}
+
+.answers {
+    width: 75%;
+    margin: auto;
 }
 
 button {
     font-size: 24px;
     font-family: inherit;
-    padding: 10px 10px;
+    padding: 15px 15px;
     background-color: black;
     border-color: black;
     color: white;

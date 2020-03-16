@@ -23,6 +23,7 @@ def get_images(n):
         if file.endswith(".jpg"):
             s = '../static/pictures/' + file
             image_paths.append(s)
+    print(image_paths)
     return image_paths
 
 def csv_to_json(name):

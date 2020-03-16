@@ -2,8 +2,6 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
-import csv
-import json
 import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -26,6 +24,13 @@ def get_images(n):
             s = '../static/pictures/' + file
             image_paths.append(s)
     return image_paths
+
+def csv_to_json(name):
+    csv_path = "./static/attributes/csv/" + name + '.csv'
+    json_path = "./static/attributes/json/"+ name + ".json"
+    df = pd.read_csv(csv_path, sep = ';')
+    df.set_index("Name", inplace=True)
+    df.to_json(json_path, orient='index')
 
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
@@ -69,11 +74,34 @@ def graph():
         image_name = app.config['image_name']
 
         PEOPLE_FOLDER = os.path.join('..', 'static', 'pictures')
+        # picture_filename = image_name + '.jpg'
         full_filename = os.path.join(PEOPLE_FOLDER)
         image_list = app.config['image_list']
         db_attributes = app.config['attributes']
+        json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
+        return render_template('graph.html', user_image = full_filename, image_list = image_list, db_attr = db_attributes,
+        json_list = json_list)
 
         return render_template('graph.html', user_image=full_filename, image_list=image_list, db_attr=db_attributes)
+
+@app.route('/graph/parallel', methods=['POST','GET'])
+def parallel():
+    if request.method == 'POST':
+        try :
+            return  redirect('/')
+        except :
+            return "There was an issue updating your task"
+    else :
+        csv_file = request.args.get("csv_file")
+        PEOPLE_FOLDER = os.path.join('..', 'static')
+        full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
+        image_list = app.config['image_list']
+        db_attributes = app.config['attributes']
+        json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
+
+        return render_template('parallel.html', user_image = full_filename,
+        image_list = image_list, csv_file = csv_file,
+        json_list = json_list )
 
 @app.route('/graph/data/attributes')
 def get_d3_data():

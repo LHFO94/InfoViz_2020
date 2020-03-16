@@ -57,6 +57,18 @@ def parallel():
         json_list = json_list )
 
 
+@app.route('/quiz/', methods=['POST','GET'])
+def quiz():
+    if request.method == 'POST':
+        try :
+            return  redirect('/')
+        except :
+            return "There was an issue updating your task"
+    else :
+        return render_template('quiz.html' )
+
+
+
 @app.route('/graph/data/TSNE')
 def get_d3_data():
     df = app.config['data']

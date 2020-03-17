@@ -117,9 +117,11 @@ def final_cluster():
     image_list = user_cluster_distance(cluster_df_image, 6, tsne_x,tsne_y)
 
     results = []
+    image_names = []
 
     for image in image_list:
+        image_names.append(image[:-4])
         image = '../static/pictures/' + image
         results.append(image)
 
-    return results
+    return results, image_names

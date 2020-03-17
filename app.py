@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from cluster import final_cluster
 import pandas as pd
+import json
 import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -20,12 +21,13 @@ def read_csv(name):
 
 def get_images(n):
     image_paths = []
+    image_names = []
     for file in os.listdir("./static/pictures/")[:n]:
         if file.endswith(".jpg"):
             s = '../static/pictures/' + file
             image_paths.append(s)
-    print(image_paths)
-    return image_paths
+            image_names.append(file[:-4])
+    return image_paths, image_names
 
 def csv_to_json(name):
     csv_path = "./static/attributes/csv/" + name + '.csv'
@@ -130,8 +132,27 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-        images = final_cluster()
-        return render_template('sequence.html', images=images)
+        results = final_cluster()
+        images = results[0]
+        names = results[1]
+        PEOPLE_FOLDER = os.path.join('..', 'static')
+        csv_file = request.args.get("csv_file")
+        json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
+        print(names)
+        return render_template('sequence.html', images=images, image_names = names,
+        csv_file = csv_file, json_list = json_list)
+
+        # csv_file = request.args.get("csv_file")
+        # PEOPLE_FOLDER = os.path.join('..', 'static')
+        # full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
+        # image_list = app.config['image_list']
+        # db_attributes = app.config['attributes']
+        # json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
+        #
+        # return render_template('sequence.html', images=images,
+        # user_image = full_filename, image_list = image_list,
+        # csv_file = csv_file, json_list = json_list,
+        # image_names = json.dumps(image_names))
 
 if __name__ == "__main__":
     app.run(debug=True)

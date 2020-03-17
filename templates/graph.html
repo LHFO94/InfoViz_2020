@@ -2,33 +2,71 @@
 
 {% block head %}
 
+
+<style>
+input[type=submit] {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+input[type=submit]:hover {
+  border: 0.5px solid white;
+  border-radius: 4px;
+}
+
+
+</style>
+
 {% endblock %}
 
 {% block body %}
 <div class = "content">
-  <h1   style="text-align:center">   N_O_W_H_E_R_E  </h1>
+  <h1 style="color:white" style="text-align:center">   N_O_W_H_E_R_E  </h1>
 
   <form action="/" method="GET" style="text-align:center" >
-      <input type="submit" value="Go to Picture">
+      <input type="submit" value="Back to Intro Screen">
   </form>
-  <h3 style="text-align:center" >Scatter Plot of Picture Atrributes</h3>
+  <h3 style="color:white" style="text-align:center"   >Scatter Plot of Picture Atrributes</h3>
   <svg width = "960" height = "410" >
   </svg>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <!-- <script src="d3-tip.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
-
- d3.csv('/graph/data/attributes')
+ d3.csv('/graph/data/TSNE')
    .then(data => {
    data.forEach(d => {
      d.x = +d.x;
      d.y = +d.y;
    })
 
+   //var path = "{{json_list}}" + "approach.json";
 
- 	 console.log(data);
+   //..staticAttributesjsonapproach.json
+   d3.json('../static/Attributes/json/geo_new.json')
+     .then(function(geo_file) {
+       //console.log(file)
+       // data is now whole data set
+       // draw chart in here!
+       console.log(geo_file)
+
+
+       d3.json('../static/Attributes/json/Reality.json')
+         .then(function(reality_file) {
+           //console.log(file)
+           // data is now whole data set
+           // draw chart in here!
+           console.log(reality_file)
+
 
    const svg = d3.select('svg');
    const width = +svg.attr('width');
@@ -54,10 +92,50 @@
    .direction('e')
    .offset([0,5])
    .html(function(d) {
-       // var content = "<span style='margin-left: 2.5px;'><b>" + d.name + "</b></span><br>";
+
+        var location = ''
+
+       if ( geo_file[d.img]["Europe"] ==  1   ) {
+          location = "Europe";
+        } else if (  geo_file[d.img]["Nrth America"] == 1) {
+          location = "North America";
+        } else if (geo_file[d.img]["Middle East"] ==  1) {
+          location = "Middle East";
+        } else if (geo_file[d.img]["Asia"] ==  1) {
+          location = "Asia";
+        } else if (geo_file[d.img]["Sth America"] ==  1)   {
+          location = "South America";
+        };
+
+        reality = reality_file[d.img];
+        var real = new Array("", "", "","","");
+        var loop = 0;
+        for (var key in reality) {
+          // assign
+             if reality[key] > 0:
+              real[loop] =
+
+          //order a list
+
+        };
+
+
+
+
+
+       var temp = geo_file[d.img]['Year']
        var image = '../static/pictures/' + d.img + '.jpg'
-       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>";
+       var content = "<span style='margin-left: 2.5px;'><b>" + d.img + "</b></span><br>.values[0]";
        content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
+       content +=`<p>Year: ` + temp +`</p>`
+       content +=`<p>Location:` + location + `</p>`
+       content +=`<p>Top 5 Attributes` + location + `</p>`
+       content +=`<p>1.` + real[0] + `</p>`
+       content +=`<p>2.` + real[1] + `</p>`
+       content +=`<p>3.` + real[2] + `</p>`
+       content +=`<p>4.` + real[3] + `</p>`
+       content +=`<p>5.` + real[4] + `</p>`
+
        return content;
    });
 
@@ -124,7 +202,19 @@
      g.selectAll('circle')
       .on('mouseover', tool_tip.show)
       .on('mouseout', tool_tip.hide);
- });
+    })
+     .catch(function(error) {
+       console.log(error);
+       // handle error
+     })
+
+
+     })
+      .catch(function(error) {
+        console.log(error);
+        // handle error
+      })
+  });
   </script>
 </div>
 

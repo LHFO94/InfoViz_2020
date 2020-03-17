@@ -29,7 +29,7 @@ body {
 .container img {
   margin-top: 15px;
   transition: transform .2s;
-  height: 700px;
+  height: 500px;
   cursor: pointer;
 }
 

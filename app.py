@@ -1,8 +1,15 @@
 from flask import Flask, render_template , url_for, request,redirect
 from flask_sqlalchemy import SQLAlchemy
+from sklearn.cluster import KMeans
+from scipy.spatial import distance
+from sklearn.manifold import TSNE
 from datetime import datetime
 import pandas as pd
+import numpy as np
+from cluster import *
+import json
 import os
+
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -17,6 +24,8 @@ app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d.csv", header=[0])
+app.config['sequence_list'] = final_cluster ()
+
 
 
 
@@ -65,6 +74,7 @@ def quiz():
         except :
             return "There was an issue updating your task"
     else :
+        print (app.config['sequence_list'])
         return render_template('quiz.html' )
 
 

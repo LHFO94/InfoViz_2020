@@ -5,29 +5,6 @@ import numpy as np
 from scipy.spatial import distance
 from sklearn.manifold import TSNE
 
-"""CHANGE IT. THIS IS WHERE USER INPUTS WERE GIVEN, SHOULD BE IN THE FORMAT OF LIST"""
-
->>>>>>> sequence
-user_input_vector= [1 , 0. , 0. , 0. , 0. , 0.5, 0. , 0.5, 1. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.5, 0.5, 0.5, 0. , 0. , 0.5,
-        0.5, 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.5 , 0. , 0. , 0. , 0. ,
-<<<<<<< HEAD
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-=======
-        0. , 0. , 1. , 1. , 1. , 1. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0.3 , 0.3 , 0. , 0. , 0. , 0. , 0. ,
->>>>>>> sequence
-        0. , 0. ]
-
 
 """ First function """
 def read_data(file_path):
@@ -36,11 +13,7 @@ def read_data(file_path):
 
 
 """ Second function"""
-<<<<<<< HEAD
 def do_TSNE(user_input_vector,data,output_dims, verbose=2, perplexity=30):
-=======
-def do_TSNE(user_input_vector,data,output_dims, verbose=0, perplexity=30):
->>>>>>> sequence
     """
     Reduce the dimensionaly from data.colmns into to output_dims
     Returns a numpy array of (len(data), output_dims)
@@ -56,11 +29,7 @@ def do_TSNE(user_input_vector,data,output_dims, verbose=0, perplexity=30):
     return data_2d_df #contains the user input and user input is at the bottom
 
 """ Thrid function"""
-<<<<<<< HEAD
 def seperate_user_input(img_name,train_tsne_final,user_input_vector): #this function seperates the tsne results of images and tsne result of user input
-=======
-def seperate_user_input(img_name,train_tsne_final): #this function seperates the tsne results of images and tsne result of user input
->>>>>>> sequence
     results_original = do_TSNE(user_input_vector,train_tsne_final, 2)
     image_tsne= results_original[:220] # tsne results of all the images
     image_tsne['img']=img_name
@@ -88,11 +57,7 @@ def kmeans_df_labels(df, n_cluster): #create a tsne result dataframe with Kmeans
     return df
 
 """ fourth function"""
-<<<<<<< HEAD
 def user_cluster_distance(df, n_cluster, tsne_x, tsne_y,user_input_vector): #combine the function kmeans_df_labels with kmeans_predict
-=======
-def user_cluster_distance(df, n_cluster, tsne_x, tsne_y): #combine the function kmeans_df_labels with kmeans_predict
->>>>>>> sequence
     user_cluster = kmeans_predict(df, n_cluster, tsne_x, tsne_y)
     a=user_cluster.tolist()
     df=kmeans_df_labels(df, n_cluster)
@@ -108,48 +73,30 @@ def user_cluster_distance(df, n_cluster, tsne_x, tsne_y): #combine the function 
     similar_image=new_array.nsmallest(10, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
     return list(similar_image['img_name']+'.jpg')
 
-<<<<<<< HEAD
 def final_cluster (user_input_vector):
     """ Calls first function"""
     df_01= read_data('./static/Attributes/NOWHERE_DATASET.csv')
     img_name=df_01['Name']
     print ('part_1_done')
-=======
-def final_cluster():
-    """ Calls first function"""
-    df_01= read_data('./static/Attributes/NOWHERE_DATASET.csv')
-    img_name=df_01['Name']
-
->>>>>>> sequence
     """Load TSNE """
     train_df=pd.read_csv('./static/Attributes/tsne_train.csv')
     train_df_1= train_df.drop(['Unnamed: 0'],axis=1)
     train_tsne_final=train_df_1.drop(index=0).reset_index(drop=True)
-<<<<<<< HEAD
     print ('part_2_done')
-=======
->>>>>>> sequence
 
 
 
     """Calls second function """
     results_original = do_TSNE(user_input_vector,train_tsne_final, 2)
-<<<<<<< HEAD
     print ('part_3_done')
 
     """ Calls thrid function """
     image_and_user=seperate_user_input(img_name,train_tsne_final,user_input_vector)
     print ('part_4_done')
-=======
-
-    """ Calls thrid function """
-    image_and_user=seperate_user_input(img_name,train_tsne_final)
->>>>>>> sequence
 
     cluster_df_image=image_and_user[0] #updated image dataframe from tsne
     tsne_x= image_and_user[1]['x'].tolist()[0]
     tsne_y=image_and_user[1]['y'].tolist()[0]
-<<<<<<< HEAD
     print ('part_5_done')
 
     """ Calls fourth function"""
@@ -158,19 +105,3 @@ def final_cluster():
 
 
     return image_list
-=======
-
-    """ Calls fourth function"""
-    """tsne_x and tsne_y will be changed automatically, cluster we need to define ourselves. You only need to change the user input"""
-    image_list = user_cluster_distance(cluster_df_image, 6, tsne_x,tsne_y)
-
-    results = []
-    image_names = []
-
-    for image in image_list:
-        image_names.append(image[:-4])
-        image = '../static/pictures/' + image
-        results.append(image)
-
-    return results, image_names
->>>>>>> sequence

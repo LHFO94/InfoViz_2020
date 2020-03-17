@@ -7,6 +7,7 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 from cluster import *
+from attribute_mapping import *
 import json
 import os
 
@@ -24,9 +25,7 @@ app.config['image_list'] = create_image_list('./static/pictures/')
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d.csv", header=[0])
-app.config['sequence_list'] = final_cluster ()
-
-
+app.config['sequence_list'] = []
 
 
 @app.route('/', methods=['POST','GET'])
@@ -70,7 +69,27 @@ def parallel():
 def quiz():
     if request.method == 'POST':
         print (request.form.getlist('col_filter[]'))
+        input_array_string  =  request.form.getlist('col_filter[]')
+        input_array = []
+        for loop in input_array_string:
+            input_array.append(int(loop))
 
+        print (input_array)
+
+
+
+
+        file_path = "./static/Quiz/quiz_attributes_commas.csv"
+        attribute_map = pd.read_csv(file_path, index_col = 0)
+        output_list = map_attributes(input_array,attribute_map)
+
+        print (output_list)
+        print ('and now length:')
+        print (len(output_list))
+
+        app.config['sequence_list'] = final_cluster(output_list[:145])
+
+        print (app.config['sequence_list']) 
         try :
             return  redirect('/')
         except :

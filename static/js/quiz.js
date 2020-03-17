@@ -37,6 +37,7 @@ function buildQuiz(){ // Starts the quiz.
 
 function storeResults(answerInteger){ // Adds chosen answers to an array.
     answerArray.push(answerInteger);
+    console.log(answerArray);
 }
 
 function showSlide(n, alsofade = false) { // Fades in current slide.
@@ -231,6 +232,16 @@ const questionTexts = [
         }
     },
     {
+           question: 'Where is your somewhere?',
+           answers: {
+               a: 'Europe.',
+               b: 'North America.',
+               c: 'The Middle East.',
+               d: 'Asia.',
+               e: 'South America.'
+           },
+       },
+    {
         question: 'END OF QUIZ',
         answers: {a: 'CONTINUE'}
     }
@@ -250,7 +261,6 @@ let currentSlide = 0;
 showSlide(currentSlide);
 console.log(slides.length);
 
-
 // Two more functions
 function showNextSlide() { // Fades out current slide, calls showSlide() for current + 1.
 
@@ -260,8 +270,7 @@ function showNextSlide() { // Fades out current slide, calls showSlide() for cur
         fadeout(slides[currentSlide]);
         showSlide(currentSlide + 1);
     }
-    //answerArray.length === slides.length
-    if(answerArray.length === 14) {
+    if(answerArray.length === 15) {
          $.ajax({type:"Post", url:"/quiz/", data: {"col_filter":answerArray} })
       }
 }

@@ -17,8 +17,8 @@ app.config['image_name'] = 'swan'
 app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv", header=[0, 1], index_col=0)
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d.csv", header=[0])
-app.config['sequence_list'] = []
-
+app.config['results'] = []
+app.config['image_names'] = []
 
 
 @app.route('/', methods=['POST','GET'])
@@ -60,15 +60,15 @@ def quiz():
         print ('and now length:')
         print (len(output_list))
 
-        app.config['sequence_list'] = final_cluster(output_list[:145])
+        app.config['results'] = final_cluster(output_list[:145])
 
-        print (app.config['sequence_list'])
+        print (app.config['results'])
         try :
             return  redirect('/')
         except :
             return "There was an issue updating your task"
     else :
-        print (app.config['sequence_list'])
+        print (app.config['results'])
         return render_template('quiz.html' )
 
 
@@ -94,7 +94,7 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-        results = app.config['sequence_list']
+        results = app.config['results']
         print (results)
         images = results[0]
         names = results[1]

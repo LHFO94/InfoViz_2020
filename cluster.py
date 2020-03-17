@@ -103,5 +103,12 @@ def final_cluster (user_input_vector):
     """tsne_x and tsne_y will be changed automatically, cluster we need to define ourselves. You only need to change the user input"""
     image_list = user_cluster_distance(cluster_df_image, 6, tsne_x,tsne_y,user_input_vector)
 
+    results = []
+    image_names = []
 
-    return image_list
+    for image in image_list:
+        image_names.append(image[:-4])
+        image = '../static/pictures/' + image
+        results.append(image)
+
+    return results, image_names

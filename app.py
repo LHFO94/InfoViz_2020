@@ -132,7 +132,7 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-        results = final_cluster()
+        results = app.config['sequence_list']
         images = results[0]
         names = results[1]
         PEOPLE_FOLDER = os.path.join('..', 'static')

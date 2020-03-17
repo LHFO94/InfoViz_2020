@@ -99,7 +99,7 @@ const questionTexts = [
             c: 'Strapped to a remote control plane.',
             d: 'At the circus.',
             e: 'Chasing lawnmowers.'
-        },
+        }
     },
     {
         question: 'Which has the strongest smell?',
@@ -109,7 +109,7 @@ const questionTexts = [
             c: 'Personalized marketing.',
             d: 'Lies.',
             e: 'Home cooking.'
-        },
+        }
     },
     {
         question: 'Who just parked your car?',
@@ -230,6 +230,16 @@ const questionTexts = [
             d: 'Pornography.',
             e: 'Vietnam.'
         }
+    },
+    {
+        question: 'Where is your somewhere?',
+        answers: {
+            a: 'Europe.',
+            b: 'North America.',
+            c: 'The Middle East.',
+            d: 'Asia.',
+            e: 'South America.'
+        },
     },
     {
         question: 'END OF QUIZ',

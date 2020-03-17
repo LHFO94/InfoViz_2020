@@ -232,6 +232,16 @@ const questionTexts = [
         }
     },
     {
+           question: 'Where is your somewhere?',
+           answers: {
+               a: 'Europe.',
+               b: 'North America.',
+               c: 'The Middle East.',
+               d: 'Asia.',
+               e: 'South America.'
+           },
+       },
+    {
         question: 'END OF QUIZ',
         answers: {a: 'CONTINUE'}
     }
@@ -260,9 +270,9 @@ function showNextSlide() { // Fades out current slide, calls showSlide() for cur
         fadeout(slides[currentSlide]);
         showSlide(currentSlide + 1);
     }
-    if(answerArray.length === slides.length) {
-        console.log(JSON.stringify(answerArray));
-        }
+    if(answerArray.length === 15) {
+         $.ajax({type:"Post", url:"/quiz/", data: {"col_filter":answerArray} })
+      }
 }
 
 function backtoStart() { // Resets current slide.

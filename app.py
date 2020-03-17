@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from cluster import final_cluster
 import pandas as pd
 import os
 
@@ -44,6 +45,9 @@ app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d.csv", heade
 @app.route('/', methods=['POST', 'GET'])
 def index():
 
+    if request.method == "POST":
+        app.config['image_name'] = request.form["content"]
+        return redirect('/')
 
     else:
         image_name = app.config['image_name']
@@ -126,17 +130,8 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-        images = get_images(9)
-        csv_file = request.args.get("csv_file")
-        PEOPLE_FOLDER = os.path.join('..', 'static')
-        full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
-        image_list = app.config['image_list']
-        db_attributes = app.config['attributes']
-        json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
-
-        return render_template('sequence.html', images=images,
-        user_image = full_filename, image_list = image_list,
-        csv_file = csv_file, json_list = json_list)
+        images = final_cluster()
+        return render_template('sequence.html', images=images)
 
 if __name__ == "__main__":
     app.run(debug=True)

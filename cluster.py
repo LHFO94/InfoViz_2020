@@ -16,10 +16,10 @@ user_input_vector= [1 , 0. , 0. , 0. , 0. , 0.5, 0. , 0.5, 1. , 0. , 0. , 0. , 0
         0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
         0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
         0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0.5 , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
-        0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. , 0. ,
+        0. , 0. , 1. , 1. , 1. , 1. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
+        0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
+        0. , 0. , 0. , 0. , 0. , 0. , 1. , 0. , 0. , 0. , 0. , 0. , 0. ,
+        0. , 0. , 0. , 0. , 0. , 0. , 0.3 , 0.3 , 0. , 0. , 0. , 0. , 0. ,
         0. , 0. ]
 
 
@@ -30,7 +30,7 @@ def read_data(file_path):
 
 
 """ Second function"""
-def do_TSNE(user_input_vector,data,output_dims, verbose=2, perplexity=30):
+def do_TSNE(user_input_vector,data,output_dims, verbose=0, perplexity=30):
     """
     Reduce the dimensionaly from data.colmns into to output_dims
     Returns a numpy array of (len(data), output_dims)
@@ -90,7 +90,7 @@ def user_cluster_distance(df, n_cluster, tsne_x, tsne_y): #combine the function 
     similar_image=new_array.nsmallest(10, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
     return list(similar_image['img_name']+'.jpg')
 
-def final_cluster ():
+def final_cluster():
     """ Calls first function"""
     df_01= read_data('./static/Attributes/NOWHERE_DATASET.csv')
     img_name=df_01['Name']
@@ -116,9 +116,10 @@ def final_cluster ():
     """tsne_x and tsne_y will be changed automatically, cluster we need to define ourselves. You only need to change the user input"""
     image_list = user_cluster_distance(cluster_df_image, 6, tsne_x,tsne_y)
 
-    print (image_list)
+    results = []
 
+    for image in image_list:
+        image = '../static/pictures/' + image
+        results.append(image)
 
-    return image_list
-
-final_cluster()
+    return results

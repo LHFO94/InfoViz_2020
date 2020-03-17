@@ -58,12 +58,7 @@
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-<<<<<<< HEAD
     var path = "{{json_list}}" + "{{csv_file}}" + ".csv"
-=======
-    var path = `../static/Attributes/csv/` + `human-factor.csv`
-    // var path =
->>>>>>> master
     d3.csv(path)
       .then(function(data) {
 

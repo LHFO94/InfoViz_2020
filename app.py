@@ -6,7 +6,6 @@ import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-<<<<<<< HEAD
 def create_image_list(path):
     image_list = os.listdir(path)
     return image_list
@@ -33,8 +32,6 @@ def csv_to_json(name):
     df = pd.read_csv(csv_path, sep = ';')
     df.set_index("Name", inplace=True)
     df.to_json(json_path, orient='index')
-=======
->>>>>>> master
 
 app = Flask(__name__)
 app.config['image_name'] = 'swan'
@@ -43,15 +40,11 @@ app.config['attributes'] = pd.read_csv("./static/attributes/NOWHERE_DATASET.csv"
 app.config['geo_data'] = pd.read_csv("./static/attributes/Geo.csv", header=[0])
 app.config['data'] =pd.read_csv("./static/attributes/results_TSNE_3d.csv", header=[0])
 
-<<<<<<< HEAD
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-=======
->>>>>>> master
 
 
-<<<<<<< HEAD
     else:
         image_name = app.config['image_name']
         PEOPLE_FOLDER = os.path.join('static', 'pictures')
@@ -70,14 +63,6 @@ def graph():
     if request.method == 'POST':
         try:
             return redirect('/')
-=======
-@app.route('/', methods=['POST','GET'])
-def intro():
-
-    if request.method == 'POST':
-        try :
-            return  redirect('/images/')
->>>>>>> master
 
         except:
             return "There was an issue updating your task"
@@ -89,19 +74,12 @@ def intro():
         json_list = os.path.join('..', 'static', 'Attributes', 'json', '')
         return render_template('intro_page.html',  db_attr = db_attributes , json_list = json_list )
 
-<<<<<<< HEAD
         image_name = app.config['image_name']
-=======
->>>>>>> master
 
 
-<<<<<<< HEAD
         return render_template('graph.html', user_image=full_filename, image_list=image_list, db_attr=db_attributes)
 
 @app.route('/graph/parallel', methods=['POST','GET'])
-=======
-@app.route('/graph/', methods=['POST','GET'])
->>>>>>> master
 def parallel():
     if request.method == 'POST':
         try :
@@ -138,7 +116,6 @@ def get_d3_data():
     df = app.config['data']
     return df.to_csv()
 
-<<<<<<< HEAD
 @app.route('/sequence', methods=['POST', 'GET'])
 def sequence():
 
@@ -160,13 +137,6 @@ def sequence():
         return render_template('sequence.html', images=images,
         user_image = full_filename, image_list = image_list,
         csv_file = csv_file, json_list = json_list)
-=======
-@app.route('/graph/data/attributes')
-def get_d3_attributes():
-    df = app.config['attributes']
-    return df.to_csv()
-
->>>>>>> master
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
+import json
 import os
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -19,11 +20,13 @@ def read_csv(name):
 
 def get_images(n):
     image_paths = []
+    image_names = []
     for file in os.listdir("./static/pictures/")[:n]:
         if file.endswith(".jpg"):
             s = '../static/pictures/' + file
             image_paths.append(s)
-    return image_paths
+            image_names.append(file[:-4])
+    return image_paths, image_names
 
 def csv_to_json(name):
     csv_path = "./static/attributes/csv/" + name + '.csv'
@@ -118,7 +121,8 @@ def sequence():
         except:
             return "There was an issue updating your task"
     else:
-        images = get_images(9)
+        images = get_images(9)[0]
+        image_names = get_images(9)[1]
         csv_file = request.args.get("csv_file")
         PEOPLE_FOLDER = os.path.join('..', 'static')
         full_filename = os.path.join(PEOPLE_FOLDER, 'pictures')
@@ -128,7 +132,8 @@ def sequence():
 
         return render_template('sequence.html', images=images,
         user_image = full_filename, image_list = image_list,
-        csv_file = csv_file, json_list = json_list)
+        csv_file = csv_file, json_list = json_list,
+        image_names = json.dumps(image_names))
 
 if __name__ == "__main__":
     app.run(debug=True)

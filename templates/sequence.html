@@ -121,8 +121,23 @@
             .enter().append("path")
             .attr("d", path)
             .style("fill", "none")
-            .style("stroke", "#69b3a2")
-            .style("opacity", 0.6)
+            .style("stroke", function(d) {
+              if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+                //do something
+                return "red";
+              }
+              else{
+                return "#69b3a2";
+              }
+            })
+            .style("opacity", function(d) {
+              if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+                return 1;
+              }
+              else{
+                return 0.6;
+              }
+            })
 
           var counter = dimensions.length
           // Draw the axis:
@@ -159,7 +174,7 @@
             .style("fill", "white")
 
 
-            selectAll(".axis").selectAll("path")
+          selectAll(".axis").selectAll("path")
             .style("fill", "white")
 
         })

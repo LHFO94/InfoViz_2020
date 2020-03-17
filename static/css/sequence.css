@@ -9,7 +9,7 @@ body {
   text-align: center;
   background: #000000;
   color: white;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 .image-grid {
@@ -29,7 +29,7 @@ body {
 .container img {
   margin-top: 15px;
   transition: transform .2s;
-  height: 700px;
+  height: 200px;
   cursor: pointer;
 }
 
@@ -51,4 +51,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.axis g line{
+  stroke: white;
+}
+
+.axis path{
+  stroke: white;
+}
+
+.axis text{
+  fill: white;
 }

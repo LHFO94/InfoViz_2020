@@ -69,7 +69,8 @@ def parallel():
 @app.route('/quiz/', methods=['POST','GET'])
 def quiz():
     if request.method == 'POST':
-        print (request.form['Attributes'])
+        print (request.form.getlist('col_filter[]'))
+
         try :
             return  redirect('/')
         except :

@@ -1,0 +1,60 @@
+html {
+    font-family: 'Spartan', sans-serif;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
+.slide {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+}
+
+.active-slide {
+    z-index: 2;
+}
+
+.quiz-container {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.question {
+    color: pink;
+    margin: -150px auto 100px auto;
+}
+
+.answers {
+    width: 75%;
+    margin: auto;
+}
+
+button {
+    font-size: 24px;
+    font-family: inherit;
+    padding: 15px 15px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    color: grey;
+}
+
+button:focus {
+    outline: 0;
+}
+
+#return-button {
+    font-size: 16px;
+}

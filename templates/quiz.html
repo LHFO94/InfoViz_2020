@@ -6,12 +6,32 @@
         <link href="https://fonts.googleapis.com/css?family=Spartan&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{url_for('static',filename = 'css/quiz.css')}}">
         <link href="styles/quiz.css" rel="stylesheet">
+        <style>
+        input[type=submit] {
+          width: 100%;
+          background-color: black;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+
+        input[type=submit]:hover {
+          border: 0.5px solid white;
+          border-radius: 4px;
+        }
+        </style>
     </head>
     <body>
         <div class="quiz-container">
-            <div id="quiz">Sample text.</div>
+            <div id="quiz" >Sample text.</div>
         </div>
-        <button id="return-button">START AGAIN</button>
+        <form action="/sequence" method="GET" style="text-align:center" >
+            <input type="submit" value="Go to sequence">
+        </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../static/js/quiz.js"></script>
     </body>

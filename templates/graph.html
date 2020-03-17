@@ -1,4 +1,4 @@
-{% extends "base.html"   %}
+{% extends "base.html" %}
 
 {% block head %}
 
@@ -175,7 +175,6 @@ input[type=submit]:hover {
   yAxisG.selectAll('.domain')
     .remove();
 
-
   yAxisG.append('text')
     .attr('class','axis-label')
     .attr('y',-17)
@@ -185,15 +184,12 @@ input[type=submit]:hover {
     .attr('text-anchor','middle')
     .text(yAxislabel);
 
-
     xAxisG.append('text')
       	.attr('class','axis-label')
       	.attr('y',30)
       	.attr('x',innerwidth/2)
         .attr('fill','black')
     		.text(xAxislabel);
-
-
 
    g.selectAll('circle').data(data)
      .enter().append('circle')

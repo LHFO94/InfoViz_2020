@@ -8,14 +8,38 @@
 <div class="content">
   <h1 style="text-align:center"> N_O_W_H_E_R_E </h1>
 
-  <form action="/" method="GET" style="text-align:center">
-    <input type="submit" value="Go to Picture">
+  <form action="/graph/parallel">
+  	<select name="csv_file">
+      <!-- <option onclick="doSomething()" selected value="approach">Approach</option>
+      <option onclick="doSomething()" selected value="content">Content to me</option>
+      <option onclick="doSomething()" selected value="domains">Domains</option>
+      <option onclick="doSomething()" selected value="geo">Geographical</option>
+      <option onclick="doSomething()" selected value="goals">Goals</option>
+      <option onclick="doSomething()" selected value="human-factor">Human Factor</option>
+      <option onclick="doSomething()" selected value="means">Means</option>
+      <option onclick="doSomething()" selected value="reality">Reality</option> -->
+      <option  selected value="approach">Approach</option>
+      <option  selected value="content">Content to me</option>
+      <option  selected value="domains">Domains</option>
+      <option  selected value="geo">Geographical</option>
+      <option  selected value="goals">Goals</option>
+      <option  selected value="human-factor">Human Factor</option>
+      <option  selected value="means">Means</option>
+      <option  selected value="reality">Reality</option>
+  	</select>
+  	<input type="submit" value="Update graph">
   </form>
-  <h3 style="text-align:center">Parallel Plot of Human-Factor Atrributes</h3>
+  <h3 style="text-align:center">Parallel Plot of {{csv_file}} Atrributes</h3>
   <div id="datavis"></div>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
   <script type="text/javascript">
+
+    function doSomething(){
+      console.log("gets here");
+  		document.forms[0].submit();
+  	};
+
     var margin = {
         top: 30,
         right: 10,
@@ -34,13 +58,11 @@
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-    var path = `../static/Attributes/csv/` + `human-factor.csv`
-    // var path =
+    var path = "{{json_list}}" + "{{csv_file}}" + ".csv"
     d3.csv(path)
       .then(function(data) {
 
         dimensions = d3.keys(data[0]).filter(function(d) { return d != "Name" })
-        console.log(data[0]);
 
         var y = {}
         for (i in dimensions) {
@@ -73,23 +95,33 @@
           .style("stroke", "#69b3a2")
           .style("opacity", 0.5)
 
+          var counter = dimensions.length
         // Draw the axis:
         svg.selectAll("axis")
-          // For each dimension of the dataset I add a 'g' element:
+          // For each dimension of the dataset a 'g' element:
           .data(dimensions).enter()
           .append("g")
-          // I translate this element to its right position on the x axis
           .attr("transform", function(d) {
             return "translate(" + x(d) + ")";
           })
-          // And I build the axis with the call function
+          // Add axis
           .each(function(d) {
             d3.select(this).call(d3.axisLeft().scale(y[d]));
           })
+
           // Add axis title
           .append("text")
           .style("text-anchor", "middle")
-          .attr("y", -9)
+          .attr("y", function(d){
+            if (counter % 2 == 0) {
+              counter = counter - 1
+              return -9
+            }
+            else {
+              counter = counter - 1
+              return 470
+            }
+          })
           .text(function(d) {
             return d;
           })

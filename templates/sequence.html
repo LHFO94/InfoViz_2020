@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/sequence.css')}}">
+  <!-- Script for lightbox -->
+  <script defer src="../static/js/lightbox.js"></script>
+  <!-- Removes error w.r.t. icon of a website in titlebar -->
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+</head>
+
+
+<div class="header">
+  <h1> S_O_M_E_W_H_E_R_E</h1>
+</div>
+
+<body>
+  <!-- Image grid -->
+  <div class='image-grid'>
+    <div class='row'>
+      {% for img_path in images[0:3] %}
+      <div class="container">
+        <img class='img-responsive' src='{{img_path}}'>
+      </div>
+      {% endfor %}
+    </div>
+    <div class='row'>
+      {% for img_path in images[3:6] %}
+      <div class="container">
+        <img class='img-responsive' src='{{img_path}}'>
+      </div>
+      {% endfor %}
+    </div>
+    <div class='row'>
+      {% for img_path in images[6:9] %}
+      <div class="container">
+        <img class='img-responsive' src='{{img_path}}'>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="graph">
+    <form action="/sequence">
+      <select name="csv_file">
+        <option selected value="approach">Approach</option>
+        <option selected value="content">Content to me</option>
+        <option selected value="domains">Domains</option>
+        <option selected value="geo">Geographical</option>
+        <option selected value="goals">Goals</option>
+        <option selected value="human-factor">Human Factor</option>
+        <option selected value="means">Means</option>
+        <option selected value="reality">Reality</option>
+      </select>
+      <input type="submit" value="Update graph">
+    </form>
+    <h3 style="text-align:center">Parallel Plot of {{csv_file}} Atrributes</h3>
+    <div id="datavis"></div>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <script type="text/javascript">
+      // function doSomething(){
+      //   console.log("gets here");
+      // 	document.forms[0].submit();
+      // };
+
+      var margin = {
+          top: 30,
+          right: 10,
+          bottom: 20,
+          left: 0
+        },
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      var svg = d3.select("#datavis")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+      var path = "{{json_list}}" + "{{csv_file}}" + ".csv"
+      d3.csv(path)
+        .then(function(data) {
+
+          dimensions = d3.keys(data[0]).filter(function(d) {
+            return d != "Name"
+          })
+
+          var y = {}
+          for (i in dimensions) {
+            name = dimensions[i]
+            y[name] = d3.scaleLinear()
+              .domain(d3.extent(data, function(d) {
+                return +d[name];
+              }))
+              .range([height, 0])
+          }
+
+          // Build the X scale -> it find the best position for each Y axis
+          x = d3.scalePoint()
+            .range([0, width])
+            .padding(1)
+            .domain(dimensions);
+
+          function path(d) {
+            return d3.line()(dimensions.map(function(p) {
+              return [x(p), y[p](d[p])];
+            }));
+          }
+
+            svg
+              .selectAll("path")
+              .data(data)
+              .enter().append("path")
+              .attr("d", path)
+              .style("fill", "none")
+              .style("stroke", function(d) {
+                if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+                  return "red";
+                }
+                else{
+                  return "#69b3a2";
+                }
+              })
+              .style("opacity", function(d) {
+                if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+                  return 1;
+                }
+                else{
+                  return 0.15;
+                }
+              })
+
+
+
+          var counter = dimensions.length
+          // Draw the axis:
+          svg.selectAll(".axis")
+            // For each dimension of the dataset a 'g' element:
+            .data(dimensions).enter()
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", function(d) {
+              return "translate(" + x(d) + ")";
+            })
+
+            // Add axis
+            .each(function(d) {
+              d3.select(this).call(d3.axisLeft().scale(y[d]));
+            })
+            .style("stroke", "white")
+
+            // Add axis title
+            .append("text")
+            .style("text-anchor", "middle")
+            .attr("y", function(d) {
+              if (counter % 2 == 0) {
+                counter = counter - 1
+                return -9
+              } else {
+                counter = counter - 1
+                return 470
+              }
+            })
+            .text(function(d) {
+              return d;
+            })
+            .style("fill", "white")
+
+
+          selectAll(".axis").selectAll("path")
+            .style("fill", "white")
+
+        })
+        .catch(function(error) {
+          // handle error
+        })
+    </script>
+</body>
+
+</html>

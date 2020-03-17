@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>N_O_W_H_E_R_E</title>
+    <link href="https://fonts.googleapis.com/css?family=Spartan&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/front_page.css')}}">
+
+<style>
+
+
+.fadein {
+    text-align: center;
+    color: white;
+    position: absolute;
+    font-size: 40px;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadein ease 10s;
+    -webkit-animation: fadein ease 10s;
+    /* animation-delay: 5s;
+    -webkit-animation-delay: 5s; */
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+
+
+</style>
+
+
+
+
+
+</head>
+<body>
+        <div class="context">
+          <div class = 'fadein'>
+            <h1 >N_O_W_H_E_R_E</h1>
+            <form action="/quiz/" method="GET" style="text-align:center" >
+                <input type="submit" value="W_H_E_R_E_A_R_E_Y_O_U_?">
+            </form>
+              <svg width = "1500" height = "410" >
+              </svg>
+            </div>
+              <script src="https://d3js.org/d3.v5.min.js"></script>
+              <!-- <script src="d3-tip.js"></script> -->
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+              <script src="https://d3js.org/d3-color.v1.min.js"></script>
+              <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+              <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+              <script>
+
+              d3.csv('/graph/data/TSNE')
+                .then(data => {
+                data.forEach(d => {
+                  d.x = +d.x;
+                  d.y = +d.y;
+                  d.z = +d.z;
+                })
+
+                //var path = "{{json_list}}" + "approach.json";
+
+                //..staticAttributesjsonapproach.json
+                d3.json('../static/Attributes/json/geo_new.json')
+                  .then(function(geo_file) {
+                    //console.log(file)
+                    // data is now whole data set
+                    // draw chart in here!
+                    console.log(geo_file)
+
+                const svg = d3.select('svg');
+                const width = +svg.attr('width');
+                const height = +svg.attr('height');
+
+                const xAxislabel = ' ';
+                const yAxislabel = ' ';
+
+
+                const margin = {top: 10 , right: 200 , bottom: 50, left: 300};
+                const innerwidth = width - margin.left - margin.right;
+                const innerheight = height - margin.top - margin.bottom;
+
+
+              const xValue =  d => d.x;
+              const yValue = d => d.y;
+              const zValue = d => d.z;
+
+              // Build color scale
+                var myColor = d3.scaleSequential()
+                  .interpolator(d3.interpolateSpectral )
+                    .domain([1,10])
+
+
+
+
+              var tool_tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .direction('e')
+                .offset([0,5])
+                .html(function(d) {
+
+                     var location = ''
+
+                    if ( geo_file[d.img]["Europe"] ==  1   ) {
+                       location = "Europe";
+                     } else if (  geo_file[d.img]["Nrth America"] == 1) {
+                       location = "North America";
+                     } else if (geo_file[d.img]["Middle East"] ==  1) {
+                       location = "Middle East";
+                     } else if (geo_file[d.img]["Asia"] ==  1) {
+                       location = "Asia";
+                     } else if (geo_file[d.img]["Sth America"] ==  1)   {
+                       location = "South America";
+                     };
+
+
+
+
+
+                    var temp = geo_file[d.img]['Year']
+                    var image = '../static/pictures/' + d.img + '.jpg'
+                    var content = "<span style='margin-center: 2.5px; text-align:center'><b>" + d.img + "</b></span><br>";
+                    content +=`<img src="`+ image +`" alt="" height="300px" width="300px">`
+                    content +=`<p>Year: ` + temp +`</p>`
+                    content +=`<p>Location:` + location + `</p>`
+                    return content;
+                });
+
+              svg.call(tool_tip);
+
+                // xScale
+              const xScale = d3.scaleLinear()
+                    .domain(d3.extent(data,xValue))
+                    .range([0 , innerwidth]);
+
+              // y Scale
+              const yScale = d3.scaleLinear()
+                .domain(d3.extent(data,yValue))
+                .range([innerheight,0]);
+
+                const g = svg.append('g')
+                 .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+
+
+                 const yAxis = d3.axisLeft(yScale)
+                       .tickSize(0)
+
+
+                   const  yAxisG = g.append('g').call(yAxis);
+
+                 const xAxis = d3.axisBottom(xScale)
+                 .tickSize(0);
+
+
+                 const  xAxisG =  g.append('g').call(xAxis)
+                     .attr('transform', `translate(0, ${innerheight})`);
+
+
+               xAxisG.selectAll('.domain')
+                 .remove();
+               yAxisG.selectAll('.domain')
+                 .remove();
+
+
+               yAxisG.append('text')
+                 .attr('class','axis-label')
+                 .attr('y',-17)
+                 .attr('x', -innerheight/2  + 15)
+                 .attr('fill','black')
+                 .attr('transform','rotate(-90)')
+                 .attr('text-anchor','middle')
+                 .text(yAxislabel);
+
+
+                 xAxisG.append('text')
+                     .attr('class','axis-label')
+                     .attr('y',30)
+                     .attr('x',innerwidth/2)
+                     .attr('fill','black')
+                     .text(xAxislabel);
+
+
+
+                g.selectAll('circle').data(data)
+                  .enter().append('circle')
+                  .transition()
+                  .duration(7000)
+                  .attr('cy', d => yScale(yValue(d)) )
+                  .attr('cx', d => xScale(xValue(d)) )
+                  .attr('r', 6)
+                  .style("fill", function(d) { return myColor(zValue(d))} );
+
+                  g.selectAll('circle')
+                   .on('mouseover', tool_tip.show)
+                   .on('mouseout', tool_tip.hide);
+
+
+                  })
+                   .catch(function(error) {
+                     console.log(error);
+                     // handle error
+                   })
+               });
+               </script>
+        </div>
+</body>
+</html>

@@ -5,10 +5,6 @@ import numpy as np
 from scipy.spatial import distance
 from sklearn.manifold import TSNE
 
-
-
-<<<<<<< HEAD
-=======
 """CHANGE IT. THIS IS WHERE USER INPUTS WERE GIVEN, SHOULD BE IN THE FORMAT OF LIST"""
 
 >>>>>>> sequence

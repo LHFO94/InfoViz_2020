@@ -23,21 +23,21 @@
     <div class='row'>
       {% for img_path in images[0:3] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}'>
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
       </div>
       {% endfor %}
     </div>
     <div class='row'>
       {% for img_path in images[3:6] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}'>
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
       </div>
       {% endfor %}
     </div>
     <div class='row'>
       {% for img_path in images[6:9] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}'>
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
       </div>
       {% endfor %}
     </div>
@@ -62,10 +62,35 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <script type="text/javascript">
-      // function doSomething(){
-      //   console.log("gets here");
-      // 	document.forms[0].submit();
-      // };
+
+      function getImg(x){
+        var start = x.src.lastIndexOf("/") + 1;
+        var end = x.src.lastIndexOf(".jpg")
+        var name = x.src.substring(start, end);
+
+        if (name.includes("%20")){
+          name = decodeURI(name)
+          name = name.replace(" ", "_")
+        }
+
+        highlight(name)
+        // d3.selectAll("#"+name)
+        // .raise()
+      }
+
+      var highlight = function(d){
+
+        // first every group turns grey
+        d3.selectAll(".line")
+        .transition().duration(50)
+        .style("stroke", "#69b3a2")
+        .style("opacity", "0.2")
+        d3.selectAll("#" + d)
+        .raise()
+        .transition().duration(50)
+        .style("stroke", "red")
+        .style("opacity", "1")
+      }
 
       var margin = {
           top: 30,
@@ -120,6 +145,14 @@
               .data(data)
               .enter().append("path")
               .attr("d", path)
+              .attr("class", "line")
+              .attr("id", function(d){
+                var name = d.Name
+                if (name.includes(" ")){
+                  name = name.replace(" ", "_")
+                }
+                return name;
+              })
               .style("fill", "none")
               .style("stroke", function(d) {
                 if ({{image_names|safe}}.indexOf(d.Name) >= 0) {

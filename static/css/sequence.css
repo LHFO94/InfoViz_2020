@@ -9,7 +9,7 @@ body {
   text-align: center;
   background: #000000;
   color: white;
-  font-size: 30px;
+  font-size: 15px;
 }
 
 .image-grid {
@@ -22,14 +22,14 @@ body {
 }
 
 .container{
-  padding: 0 15px;
+  padding: 0 5px;
   transition: transform .2s;
 }
 
 .container img {
-  margin-top: 15px;
+  margin-top: 5px;
   transition: transform .2s;
-  height: 200px;
+  height: 100px;
   cursor: pointer;
 }
 
@@ -45,17 +45,28 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
   display: none;
-  transition: all 500ms;
 }
-
 
 #lightbox.active{
   display: flex;
   background-color: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
-  transition: all 500ms;
+}
 
+#dislike_button{
+  display: None;
+  height: 25px;
+  width: 50px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+
+#dislike_button.active{
+  position: relative;
+  display: flex;
 }
 
 .axis g line{

@@ -23,21 +23,24 @@
     <div class='row'>
       {% for img_path in images[0:3] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)"
+        onmouseout="resetGraph()">
       </div>
       {% endfor %}
     </div>
     <div class='row'>
       {% for img_path in images[3:6] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)"
+        onmouseout="resetGraph()">
       </div>
       {% endfor %}
     </div>
     <div class='row'>
       {% for img_path in images[6:9] %}
       <div class="container">
-        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)">
+        <img class='img-responsive' src='{{img_path}}' onmouseover="getImg(this)"
+        onmouseout="resetGraph()">
       </div>
       {% endfor %}
     </div>
@@ -62,6 +65,28 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <script type="text/javascript">
+
+
+    function resetGraph(){
+      d3.selectAll(".line")
+      .transition().duration(50)
+      .style("stroke", function(d) {
+        if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+          return "red";
+        }
+        else{
+          return "#69b3a2";
+        }
+      })
+      .style("opacity", function(d) {
+        if ({{image_names|safe}}.indexOf(d.Name) >= 0) {
+          return 1;
+        }
+        else{
+          return 0.15;
+        }
+      })
+    }
 
       function getImg(x){
         var start = x.src.lastIndexOf("/") + 1;

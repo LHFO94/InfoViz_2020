@@ -70,7 +70,7 @@ def user_cluster_distance(df, n_cluster, tsne_x, tsne_y,user_input_vector): #com
 
     new_array= pd.DataFrame(array_df, columns=['x','y','img_name','cluster'])#convert to df again
     new_array['distance Euclidean']=distance_list
-    similar_image=new_array.nsmallest(10, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
+    similar_image=new_array.nsmallest(18, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
     return list(similar_image['img_name']+'.jpg')
 
 def final_cluster (user_input_vector):
@@ -83,8 +83,6 @@ def final_cluster (user_input_vector):
     train_df_1= train_df.drop(['Unnamed: 0'],axis=1)
     train_tsne_final=train_df_1.drop(index=0).reset_index(drop=True)
     print ('part_2_done')
-
-
 
     """Calls second function """
     results_original = do_TSNE(user_input_vector,train_tsne_final, 2)
@@ -103,12 +101,18 @@ def final_cluster (user_input_vector):
     """tsne_x and tsne_y will be changed automatically, cluster we need to define ourselves. You only need to change the user input"""
     image_list = user_cluster_distance(cluster_df_image, 6, tsne_x,tsne_y,user_input_vector)
 
-    results = []
+    primary_results = []
+    secondary_results = []
     image_names = []
 
-    for image in image_list:
+    for image in image_list[:9]:
         image_names.append(image[:-4])
         image = '../static/pictures/' + image
-        results.append(image)
+        primary_results.append(image)
 
-    return results, image_names
+    for image in image_list[9:18]:
+        image_names.append(image[:-4])
+        image = '../static/pictures/' + image
+        secondary_results.append(image)
+
+    return primary_results, image_names, secondary_results

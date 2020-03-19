@@ -106,7 +106,7 @@ def sequence():
         json_list = "../static/Attributes/csv/"
         print(names)
         return render_template('sequence.html', images=primary_images, image_names = names,
-        csv_file = csv_file, json_list = json_list, secondary_images=secondary_images)
+        json_list = json_list, secondary_images=secondary_images)
 
 
 if __name__ == "__main__":

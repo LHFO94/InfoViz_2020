@@ -38,22 +38,20 @@ button.addEventListener("click", function(){
   // find current img DOM
   var img = lightbox.firstChild;
 
-  console.log(images)
-
   // src swap
-  old_src = img.src
+  old_src = img.src.slice(21)
   img.src = secondary_images[1]
+  console.log(old_src)
 
   // update primary image array
-  for(var i = 0; i < images.length; i++) {
-    console.log(images[i].slice(2))
-    if (old_src.slice(21) == images[i].slice(2)) {
-      console.log('foo')
-      images[i] = img.src.slice(21)
+  img_grid = document.getElementsByClassName('img-responsive')
+  for (grid_img of img_grid) {
+    src = grid_img.src.slice(21)
+    if (src == old_src) {
+      grid_img.src = img.src
     }
   }
   lightbox.appendChild(button)
   // remove used image from array
   secondary_images.shift()
-  console.log(images)
 })

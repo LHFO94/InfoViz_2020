@@ -96,16 +96,17 @@ def sequence():
     else:
         results = app.config['results']
         print (results)
-        images = results[0]
+        primary_images = results[0]
         names = results[1]
+        secondary_images = results[2]
         PEOPLE_FOLDER = os.path.join('..', 'static')
         csv_file = request.args.get("csv_file")
         json_list = os.path.join(PEOPLE_FOLDER, 'Attributes', 'csv', '')
 
         json_list = "../static/Attributes/csv/"
         print(names)
-        return render_template('sequence.html', images=images, image_names = names,
-        csv_file = csv_file, json_list = json_list)
+        return render_template('sequence.html', images=primary_images, image_names = names,
+        csv_file = csv_file, json_list = json_list, secondary_images=secondary_images)
 
 
 if __name__ == "__main__":

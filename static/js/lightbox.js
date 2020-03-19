@@ -18,8 +18,8 @@ images.forEach(image => {
       lightbox.removeChild(lightbox.firstChild)
     }
     lightbox.appendChild(img)
+
     var width = - ((img.clientWidth) / 2 + 25)
-    console.log(width)
     lightbox.appendChild(button)
     button.style.left = width + 'px'
     button.style.top = '-75px'
@@ -33,4 +33,9 @@ lightbox.addEventListener('click', e => {
   lightbox.classList.remove('active')
 })
 
-button.addEventListener("click", function(){ alert("Hello World!"); });
+button.addEventListener("click", function(){
+  var img = lightbox.firstChild;
+  img.src = secondary_images[1]'
+  lightbox.appendChild(button)
+  secondary_images.shift()
+});

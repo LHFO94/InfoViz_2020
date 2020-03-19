@@ -98,6 +98,7 @@ def sequence():
         print (results)
         primary_images = results[0]
         names = results[1]
+        names_2 = results[3]
         secondary_images = results[2]
         PEOPLE_FOLDER = os.path.join('..', 'static')
         csv_file = request.args.get("csv_file")
@@ -106,7 +107,8 @@ def sequence():
         json_list = "../static/Attributes/csv/"
         print(names)
         return render_template('sequence.html', images=primary_images, image_names = names,
-        json_list = json_list, secondary_images=secondary_images)
+        json_list = json_list, secondary_images=secondary_images, csv_file = csv_file,
+        names_2 = names_2)
 
 
 if __name__ == "__main__":

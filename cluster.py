@@ -104,6 +104,7 @@ def final_cluster (user_input_vector):
     primary_results = []
     secondary_results = []
     image_names = []
+    image_names_2 = []
 
     for image in image_list[:9]:
         image_names.append(image[:-4])
@@ -111,8 +112,8 @@ def final_cluster (user_input_vector):
         primary_results.append(image)
 
     for image in image_list[9:18]:
-        image_names.append(image[:-4])
+        image_names_2.append(image[:-4])
         image = '../static/pictures/' + image
         secondary_results.append(image)
 
-    return primary_results, image_names, secondary_results
+    return primary_results, image_names, secondary_results, image_names_2

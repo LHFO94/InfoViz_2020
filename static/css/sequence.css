@@ -61,10 +61,12 @@ body {
   cursor: pointer;
   background-color: black;
   color: white;
+  position: fixed;
+  top: 45%;
+
 }
 
 #dislike_button.active{
-  position: relative;
   display: flex;
 }
 

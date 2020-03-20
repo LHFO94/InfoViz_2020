@@ -73,6 +73,26 @@ body {
   color: white;
 }
 
+.graph_button {
+  color: #FFFFFF;
+  border-radius: 20px;
+  background-color: #000000;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 15px;
+  box-shadow: 1px 1px 18px 0px #000000;
+  border: solid #000000 1px;
+
+
+
+}
+
+.graph_button:hover {
+    background-image: linear-gradient(#69b3a2, #69b3a1);
+    background-color: #69b3a2;
+}
+
+
 #dislike_button.active {
   display: flex;
 }

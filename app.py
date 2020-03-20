@@ -49,9 +49,6 @@ def quiz():
 
         print (input_array)
 
-
-
-
         file_path = "./static/Quiz/quiz_attributes_commas.csv"
         attribute_map = pd.read_csv(file_path, index_col = 0)
         output_list = map_attributes(input_array,attribute_map)

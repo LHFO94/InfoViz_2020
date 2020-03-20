@@ -13,7 +13,7 @@ def read_data(file_path):
 
 
 """ Second function"""
-def do_TSNE(user_input_vector,data,output_dims, verbose=2, perplexity=30):
+def do_TSNE(user_input_vector,data,output_dims, verbose=0, perplexity=30):
     """
     Reduce the dimensionaly from data.colmns into to output_dims
     Returns a numpy array of (len(data), output_dims)
@@ -70,7 +70,7 @@ def user_cluster_distance(df, n_cluster, tsne_x, tsne_y,user_input_vector): #com
 
     new_array= pd.DataFrame(array_df, columns=['x','y','img_name','cluster'])#convert to df again
     new_array['distance Euclidean']=distance_list
-    similar_image=new_array.nsmallest(18, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
+    similar_image=new_array.nsmallest(30, 'distance Euclidean').reset_index(drop=True) #you can define how many images you want to return here
     return list(similar_image['img_name']+'.jpg')
 
 def final_cluster (user_input_vector):
@@ -111,7 +111,7 @@ def final_cluster (user_input_vector):
         image = '../static/pictures/' + image
         primary_results.append(image)
 
-    for image in image_list[9:18]:
+    for image in image_list[9:]:
         image_names_2.append(image[:-4])
         image = '../static/pictures/' + image
         secondary_results.append(image)

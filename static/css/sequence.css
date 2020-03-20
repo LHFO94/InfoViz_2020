@@ -5,11 +5,27 @@ body {
 }
 
 .header {
-  padding: 40px;
+  padding: 20px;
   text-align: center;
   background: #000000;
   color: white;
   font-size: 15px;
+}
+
+input[type=submit] {
+  color: #FFFFFF;
+  border-radius: 20px;
+  background-color: #000000;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 15px;
+  box-shadow: 1px 1px 18px 0px #000000;
+  border: solid #000000 1px;
+}
+
+input[type=submit]:hover {
+    background-image: linear-gradient(#69b3a2, #69b3a1);
+    background-color: #69b3a2;
 }
 
 .image-grid {}
@@ -55,13 +71,23 @@ body {
 
 #dislike_button {
   display: None;
-  height: 25px;
-  width: 50px;
   cursor: pointer;
-  background-color: black;
-  color: white;
   position: fixed;
-  top: 45%;
+  top: 42%;
+  color: #FFFFFF;
+  border-radius: 20px;
+  background-color: #000000;
+  opacity: inherit;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 15px;
+  box-shadow: 1px 1px 18px 0px #000000;
+  border: solid #000000 1px;
+}
+
+#dislike_button:hover {
+    background-image: linear-gradient(red, red);
+    background-color: red;
 }
 
 .graph_buttons {
@@ -82,9 +108,6 @@ body {
   font-size: 15px;
   box-shadow: 1px 1px 18px 0px #000000;
   border: solid #000000 1px;
-
-
-
 }
 
 .graph_button:hover {

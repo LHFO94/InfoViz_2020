@@ -6,6 +6,25 @@ html, body {
     font-family: 'Spartan', sans-serif;
 }
 
+.graph_buttons {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 3px;
+  width: 50%;
+  height: 40px;
+  color: white;
+}
+
+.graph_button {
+  color: #FFFFFF;
+  border-radius: 20px;
+  background-color: #000000;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 15px;
+  box-shadow: 1px 1px 18px 0px #000000;
+  border: solid #000000 1px;
+}
 
 .fadein {
     text-align: center;

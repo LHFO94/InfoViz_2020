@@ -8,6 +8,10 @@
   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/sequence.css')}}">
   <!-- Script for lightbox -->
   <script defer src="../static/js/lightbox.js"></script>
+
+
+</body>
+
   <!-- Removes error w.r.t. icon of a website in titlebar -->
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
   <script>
@@ -63,20 +67,24 @@
       <button type="button" name="update" onclick="updateGraph()">Update graph</button>
     </form> -->
     <div class="graph_buttons">
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="approach">Approach</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="content">Content to me</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="domains">Domains</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="geo">Geographical</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="goals">Goals</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="human_factor">Human Factor</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="means">Means</button>
-      <button type="buttonbutton" name="button" onclick="updateGraph(value)" value="reality">Reality</button>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)' data-value='approach'>approach</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>content</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>domains</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML' >geo</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>goals</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>human_factor</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>means</a>
+      <a href="javascript:void()" class="square_btn" onclick='updateGraph(this.innerHTML)'>reality</a>
     </div>
     <h3 id="graphHeader" style="text-align:center">Parallel Plot of Geographical Atrributes</h3>
     <div id="datavis"></div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <script type="text/javascript">
+
       function updateGraph(newCsv) {
 
         var svg = d3.select("#vis");
